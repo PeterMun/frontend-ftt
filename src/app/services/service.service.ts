@@ -15,7 +15,8 @@ import { evaluacion } from '../models/evaluacion';
 })
 export class ServiceService {
 
-  private URL = "http://127.0.0.1:3000";
+  //private URL = "http://127.0.0.1:3000";
+  private URL = "https://backendftt.herokuapp.com";
 
 
   constructor(private http: HttpClient,
