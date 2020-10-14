@@ -1,0 +1,96 @@
+<div>
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="/menu">REPORTES</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+  <span class="navbar-toggler-icon"></span>
+</button>
+
+        <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+            <!-- espacio -->
+            <div class="espacio"></div>
+            <!--  -->
+            <ul class="navbar-nav mr-auto mt-6 mt-lg-6">
+                <li class="nav-item active">
+                    <a class="nav-link" routerLink="/usuarios">Usuarios <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" routerLink="/evaluacion">Evaluacion <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" routerLink="/atencion">Atencion <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" routerLink="/ocupacion">Ocupacion <span class="sr-only">(current)</span></a>
+                </li>
+                <!--        SATISFACICIONES MODULO
+          <li class="nav-item active">
+          <a class="nav-link" href="#">Satisfacciones <span class="sr-only">(current)</span></a>
+      </li> -->
+                <li class="nav-item active">
+                    <a class="nav-link" routerLink="/distestadoturnos">Distribucion y estado de turnos <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" routerLink="/ingresoclientes">Ingreso de Clientes <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" routerLink="/atendidosmultiples">Atendidos multiples <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item active">
+                    <a class="navbar-brand" href="#">Cerrar Sesion</a>
+                    <!--  <button class="btn btn-outline-danger" >Cerrar Sesion</button> -->
+                    <!-- (click)="salir()" -->
+                </li>
+
+            </ul>
+
+        </div>
+
+    </nav>
+
+
+</div>
+
+
+<div class="card">
+    <h5 class="card-header">INGRESO DE CLIENTES</h5>
+    <div class="card-body">
+        <form>
+            <ul class="nav nav-tabs" id="myTab" role="tablist">
+                <li class="nav-item">
+                    <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">TURNO POR FECHA</a>
+                </li>
+
+            </ul>
+            <div class="tab-content" id="myTabContent">
+                <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                    <br><br>
+                    <button type="button" class="btn btn-primary " (click)="ExportTOExcel()">EXCEL</button>
+                    <button type="button" class="btn btn-primary" (click)="generarPDF()">PDF</button>
+                    <br><br>
+                    <table class="table table-bordered">
+                        <thead class="thead-dark">
+                            <tr>
+                                <th scope="col">Fecha</th>
+                                <th scope="col">Total Clientes</th>
+
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let servicio of servicio">
+                                <td>{{servicio.turn_fecha}}</td>
+                                <td>{{servicio.clientes}}</td>
+
+
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+        </form>
+
+
+    </div>
+</div>
