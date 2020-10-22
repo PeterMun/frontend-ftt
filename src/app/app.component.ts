@@ -1,3 +1,4 @@
+import { AutologoutService } from './services/autologout.service';
 import { Component } from '@angular/core';
 
 @Component({
@@ -7,4 +8,11 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'reportesticketsweb';
+
+  constructor(
+    private autoLogout: AutologoutService
+  ){
+
+  }
+
 }

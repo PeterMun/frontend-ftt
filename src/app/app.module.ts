@@ -20,6 +20,7 @@ import { HttpClientModule  } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { FilterPipe } from './pipes/filter.pipe';
 
+
 @NgModule({
   declarations: [
     AppComponent,

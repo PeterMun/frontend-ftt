@@ -12,6 +12,8 @@ import html2canvas from 'html2canvas';
 const EXCEL_TYPE = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
 const EXCEL_EXTENSION = '.xlsx';
 
+const PDF_EXTENSION = '.pdf';
+
 @Component({
   selector: 'app-evaluacion',
   templateUrl: './evaluacion.component.html',
@@ -20,6 +22,12 @@ const EXCEL_EXTENSION = '.xlsx';
 export class EvaluacionComponent implements OnInit {
   @ViewChild('content') content:ElementRef;
   @ViewChild('TABLE', { static: false }) TABLE: ElementRef;
+  @ViewChild('content1') content1:ElementRef;
+  @ViewChild('TABLE1', { static: false }) TABLE1: ElementRef;
+  @ViewChild('content2') content2:ElementRef;
+  @ViewChild('TABLE2', { static: false }) TABLE2: ElementRef;
+  @ViewChild('content3') content3:ElementRef;
+  @ViewChild('TABLE3', { static: false }) TABLE3: ElementRef;
 
   //turno:turno[];
 
@@ -139,12 +147,13 @@ export class EvaluacionComponent implements OnInit {
     this.leergraficosevabar();
   }
 
+
     //excel
     ExportTOExcel() {
       const ws: XLSX.WorkSheet = XLSX.utils.table_to_sheet(this.TABLE.nativeElement);
       const wb: XLSX.WorkBook = XLSX.utils.book_new();
       XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
-      XLSX.writeFile(wb,  'prueba' + '_export_' + new  Date().toLocaleString() + EXCEL_EXTENSION);
+      XLSX.writeFile(wb,  'entradassalidas' + '_export_' + new  Date().toLocaleString() + EXCEL_EXTENSION);
     }
 
     generarPDF(){

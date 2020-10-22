@@ -18,6 +18,7 @@ import html2canvas from 'html2canvas';
 
 const EXCEL_TYPE = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
 const EXCEL_EXTENSION = '.xlsx';
+
 const PDF_EXTENSION = '.pdf';
 
 
@@ -46,6 +47,7 @@ export class UsuariosComponent implements OnInit {
   servicio2: any;
   servicio3: any;
   filterPost = '';
+  serviciosearch: any;
 
 
 
@@ -59,6 +61,8 @@ export class UsuariosComponent implements OnInit {
     this.leerturnos();
     this.leerentradassalidassistema();
     this.leeratencionusuario();
+    /////
+    this.getfiltrofecha();
 
   }
 
@@ -146,7 +150,7 @@ export class UsuariosComponent implements OnInit {
      });
   }
 
-  generarPDF2(){
+  generarPDF1(){
     let data = document.getElementById('content1');
     html2canvas(data).then(canvas =>{
       var imgData = canvas.toDataURL('image/png');
@@ -166,13 +170,105 @@ export class UsuariosComponent implements OnInit {
         doc.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
         heightLeft -= pageHeight;
       }
-      doc.save( 'peterprueba.pdf');
+      doc.save( 'turnofecha.pdf');
+    })
+  }
+
+  generarPDF2(){
+    let data = document.getElementById('content2');
+    html2canvas(data).then(canvas =>{
+      var imgData = canvas.toDataURL('image/png');
+      var imgWidth = 210;
+      var pageHeight = 295;
+      var imgHeight = canvas.height * imgWidth / canvas.width;
+      var heightLeft = imgHeight;
+      var doc = new jsPDF('p', 'mm');
+      var position = 0; // give some top padding to first page
+
+      doc.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+      heightLeft -= pageHeight;
+
+      while (heightLeft >= 0) {
+        position += heightLeft - imgHeight; // top padding for other pages
+        doc.addPage();
+        doc.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+        heightLeft -= pageHeight;
+      }
+      doc.save( 'tiempopromedioatencion.pdf');
+    })
+  }
+
+  generarPDF3(){
+    let data = document.getElementById('content3');
+    html2canvas(data).then(canvas =>{
+      var imgData = canvas.toDataURL('image/png');
+      var imgWidth = 210;
+      var pageHeight = 295;
+      var imgHeight = canvas.height * imgWidth / canvas.width;
+      var heightLeft = imgHeight;
+      var doc = new jsPDF('p', 'mm');
+      var position = 0; // give some top padding to first page
+
+      doc.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+      heightLeft -= pageHeight;
+
+      while (heightLeft >= 0) {
+        position += heightLeft - imgHeight; // top padding for other pages
+        doc.addPage();
+        doc.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+        heightLeft -= pageHeight;
+      }
+      doc.save( 'entradassalidas.pdf');
+    })
+  }
+  generarPDF4(){
+    let data = document.getElementById('content4');
+    html2canvas(data).then(canvas =>{
+      var imgData = canvas.toDataURL('image/png');
+      var imgWidth = 210;
+      var pageHeight = 295;
+      var imgHeight = canvas.height * imgWidth / canvas.width;
+      var heightLeft = imgHeight;
+      var doc = new jsPDF('p', 'mm');
+      var position = 0; // give some top padding to first page
+
+      doc.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+      heightLeft -= pageHeight;
+
+      while (heightLeft >= 0) {
+        position += heightLeft - imgHeight; // top padding for other pages
+        doc.addPage();
+        doc.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+        heightLeft -= pageHeight;
+      }
+      doc.save( 'atencionusuario.pdf');
     })
   }
 
   //////////////////////filtro
 
 //FILTRO PARA LA TABLA
+
+getfiltrofecha(){
+  //getfiltroturnosfecha()
+
+
+
+  let fecha = (<HTMLInputElement>document.getElementById('start')).value;
+  console.log('esto es la fecha: ', fecha);
+
+  this.serviceService.getfiltroturnosfecha(fecha).subscribe((serviciosearch: any) => {
+    console.log(serviciosearch.turnos);
+    this.serviciosearch = serviciosearch.turnos;
+
+
+  });
+
+
+
+
+}
+
 
 
   //////////////////////////////

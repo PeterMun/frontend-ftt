@@ -26,6 +26,11 @@ export class MenuComponent implements OnInit {
   serviciosearch1: any;
   serviciosearch2: any;
   serviciosearch3: any;
+  ////////////
+  servgraf1: any;
+  servgraf2: any;
+  servgraf3: any;
+  servgraf4: any;
 
 
   @ViewChild('dateDirectivePicker')
@@ -44,6 +49,12 @@ export class MenuComponent implements OnInit {
   this.getfiltrofecha();
   this.getatencionusuario();
   this.getpromediosatencion();
+
+  ///////
+  this.gettotaltickets();
+  this.gettotalatendidos();
+  this.getsinatender();
+  this.getpromedioatencion();
 
 
   }
@@ -356,7 +367,7 @@ export class MenuComponent implements OnInit {
 
     getpromediosatencion(){
       let fecha = (<HTMLInputElement>document.getElementById('start2')).value;
-      console.log('esto es la fecha graf2: ', fecha);
+      //console.log('esto es la fecha graf2: ', fecha);
 
       this.serviceService.getpromediosatencionmenu(fecha).subscribe((serviciosearch2: any) => {
         console.log(this.serviciosearch2.turnos);
@@ -367,9 +378,51 @@ export class MenuComponent implements OnInit {
 
     getingresoclientes(){
       let fecha = (<HTMLInputElement>document.getElementById('start3')).value;
-      console.log('esto es la fecha graf3: ', fecha);
+      //console.log('esto es la fecha graf3: ', fecha);
 
     }
+
+///////////////////////////////////////////////////
+    gettotaltickets(){
+      this.serviceService.gettotaltickets().subscribe((servgraf1: any) => {
+        //console.log(servgraf1.turnos);
+        this.servgraf1 = servgraf1.turnos;
+
+      });
+
+    }
+
+    gettotalatendidos(){
+      this.serviceService.gettotalatendidos().subscribe((servgraf2: any) => {
+        //console.log(servgraf2.turnos);
+        this.servgraf2 = servgraf2.turnos;
+
+      });
+
+    }
+
+
+    getsinatender(){
+      this.serviceService.gettotalsinatender().subscribe((servgraf3: any) => {
+        //console.log(servgraf3.turnos);
+        this.servgraf3 = servgraf3.turnos;
+
+      });
+
+    }
+
+
+    getpromedioatencion(){
+      this.serviceService.getpromedioatencion().subscribe((servgraf4: any) => {
+        //console.log(servgraf4.turnos);
+        this.servgraf4 = servgraf4.turnos;
+
+      });
+
+    }
+
+
+
 
 
 

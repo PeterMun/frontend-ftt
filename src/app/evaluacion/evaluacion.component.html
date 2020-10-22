@@ -76,83 +76,90 @@
 
             <div class="tab-content" id="myTabContent">
                 <div class="tab-pane fade show active" id="servicio" role="tabpanel" aria-labelledby="servicio-tab">
-                    <h1>SERVICIOS</h1>
+
+                    <br>
                     <button type="button" class="btn btn-primary mx-2" (click)="ExportTOExcel()">EXCEL</button>
                     <button type="button" class="btn btn-primary" (click)="generarPDF()">PDF</button>
                     <br><br>
                     <!-- <label *ngFor="let servicio of servicio"> Reporte realizado por: {{servicio.Nombre}} </label> -->
-                    <table class="table table-bordered">
-                        <thead class="thead-dark">
-                            <tr>
-                                <th scope="col">Usuario</th>
-                                <th scope="col">Fecha</th>
-                                <th scope="col">Excelente</th>
-                                <th scope="col">Muy Bueno</th>
-                                <th scope="col">Bueno</th>
-                                <th scope="col">Regular</th>
-                                <th scope="col">Malo</th>
-                                <th scope="col">Total</th>
-                                <th scope="col">Promedio</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr *ngFor="let servicio of servicio">
-                                <td>{{servicio.usua_nombre}}</td>
-                                <td>{{servicio.eval_fecha}}</td>
-                                <td>{{servicio.Excelente}}</td>
-                                <td>{{servicio.Muy_Bueno}}</td>
-                                <td>{{servicio.Bueno}}</td>
-                                <td>{{servicio.Regular}}</td>
-                                <td>{{servicio.Malo}}</td>
-                                <td>{{servicio.Total}}</td>
-                                <td>{{servicio.Promedio}}</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                    <br><br>
-                    <h1>MAXIMOS Y MINIMOS</h1>
-                    <button type="button" class="btn btn-primary mx-2" (click)="ExportTOExcel()">EXCEL</button>
-                    <button type="button" class="btn btn-primary" (click)="generarPDF()">PDF</button>
-                    <br><br>
-                    <!-- <label *ngFor="let servicio of servicio"> Reporte realizado por: {{servicio.Nombre}} </label> -->
-                    <table class="table table-bordered">
-                        <thead class="thead-dark">
-                            <tr>
-                                <th scope="col">Usuario</th>
-                                <th scope="col">Fecha</th>
-                                <th scope="col">Excelente</th>
-                                <th scope="col">Muy Bueno</th>
-                                <th scope="col">Bueno</th>
-                                <th scope="col">Regular</th>
-                                <th scope="col">Malo</th>
-                                <th scope="col">Total</th>
-                                <th scope="col">Max.</th>
-                                <th scope="col">Min.</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr *ngFor="let servicio1 of servicio1">
-                                <td>{{servicio1.usua_nombre}}</td>
-                                <td>{{servicio1.eval_fecha}}</td>
-                                <td>{{servicio1.Excelente}}</td>
-                                <td>{{servicio1.Muy_Bueno}}</td>
-                                <td>{{servicio1.Bueno}}</td>
-                                <td>{{servicio1.Regular}}</td>
-                                <td>{{servicio1.Malo}}</td>
-                                <td>{{servicio1.Total}}</td>
-                                <td>{{servicio1.max}}</td>
-                                <td>{{servicio1.min}}</td>
-                            </tr>
-                        </tbody>
-                    </table>
+                    <div class="container" id="content" #content1 #TABLE1 #table>
+                        <h1>SERVICIOS</h1>
+                        <br>
+                        <table class="table table-bordered">
+                            <thead class="thead-dark">
+                                <tr>
+                                    <th scope="col">Usuario</th>
+                                    <th scope="col">Fecha</th>
+                                    <th scope="col">Excelente</th>
+                                    <th scope="col">Muy Bueno</th>
+                                    <th scope="col">Bueno</th>
+                                    <th scope="col">Regular</th>
+                                    <th scope="col">Malo</th>
+                                    <th scope="col">Total</th>
+                                    <th scope="col">Promedio</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let servicio of servicio">
+                                    <td>{{servicio.usua_nombre}}</td>
+                                    <td>{{servicio.eval_fecha}}</td>
+                                    <td>{{servicio.Excelente}}</td>
+                                    <td>{{servicio.Muy_Bueno}}</td>
+                                    <td>{{servicio.Bueno}}</td>
+                                    <td>{{servicio.Regular}}</td>
+                                    <td>{{servicio.Malo}}</td>
+                                    <td>{{servicio.Total}}</td>
+                                    <td>{{servicio.Promedio}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <br><br>
+                        <h1>MAXIMOS Y MINIMOS</h1>
+                        <br>
+                        <!-- <label *ngFor="let servicio of servicio"> Reporte realizado por: {{servicio.Nombre}} </label> -->
+                        <table class="table table-bordered">
+                            <thead class="thead-dark">
+                                <tr>
+                                    <th scope="col">Usuario</th>
+                                    <th scope="col">Fecha</th>
+                                    <th scope="col">Excelente</th>
+                                    <th scope="col">Muy Bueno</th>
+                                    <th scope="col">Bueno</th>
+                                    <th scope="col">Regular</th>
+                                    <th scope="col">Malo</th>
+                                    <th scope="col">Total</th>
+                                    <th scope="col">Max.</th>
+                                    <th scope="col">Min.</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let servicio1 of servicio1">
+                                    <td>{{servicio1.usua_nombre}}</td>
+                                    <td>{{servicio1.eval_fecha}}</td>
+                                    <td>{{servicio1.Excelente}}</td>
+                                    <td>{{servicio1.Muy_Bueno}}</td>
+                                    <td>{{servicio1.Bueno}}</td>
+                                    <td>{{servicio1.Regular}}</td>
+                                    <td>{{servicio1.Malo}}</td>
+                                    <td>{{servicio1.Total}}</td>
+                                    <td>{{servicio1.max}}</td>
+                                    <td>{{servicio1.min}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
                 </div>
                 <div class="tab-pane fade" id="tiempromat" role="tabpanel" aria-labelledby="tiempromat-tab">
                     <span></span>
-                    <h1>EMPLEADO</h1>
 
+                    <br>
                     <button type="button" class="btn btn-primary mx-2" (click)="ExportTOExcel()">EXCEL</button>
                     <button type="button" class="btn btn-primary" (click)="generarPDF()">PDF</button>
                     <br><br>
+                    <h1>EMPLEADO</h1>
+                    <br>
                     <table class="table table-bordered">
                         <thead class="thead-dark">
                             <tr>
@@ -183,9 +190,7 @@
                     </table>
                     <br><br>
                     <h1>MAXIMOS Y MINIMOS EMPLEADO</h1>
-                    <button type="button" class="btn btn-primary mx-2" (click)="ExportTOExcel()">EXCEL</button>
-                    <button type="button" class="btn btn-primary" (click)="generarPDF()">PDF</button>
-                    <br><br>
+                    <br>
                     <!-- <label *ngFor="let servicio of servicio"> Reporte realizado por: {{servicio.Nombre}} </label> -->
                     <table class="table table-bordered">
                         <thead class="thead-dark">
@@ -221,11 +226,13 @@
                 </div>
 
                 <div class="tab-pane fade" id="inoutsistema" role="tabpanel" aria-labelledby="inoutsistema-tab">
-                    <h1>ESTABLECIMIENTO</h1>
+                    <br>
 
                     <button type="button" class="btn btn-primary mx-2" (click)="ExportTOExcel()">EXCEL</button>
                     <button type="button" class="btn btn-primary" (click)="generarPDF()">PDF</button>
                     <br><br>
+                    <h1>ESTABLECIMIENTO</h1>
+                    <br>
                     <table class="table table-bordered">
                         <thead class="thead-dark">
                             <tr>
@@ -255,10 +262,11 @@
                 </div>
                 <div class="tab-pane fade" id="atencionusuario" role="tabpanel" aria-labelledby="atencionusuario-tab">
                     <span></span>
-                    <h1>EVALUACION POR GRUPO</h1>
+                    <br>
                     <button type="button" class="btn btn-primary mx-2" (click)="ExportTOExcel()">EXCEL</button>
                     <button type="button" class="btn btn-primary" (click)="generarPDF()">PDF</button>
                     <br><br>
+                    <h1>EVALUACION POR GRUPO</h1>
                     <table class="table table-bordered">
                         <thead class="thead-dark">
                             <tr>
@@ -286,11 +294,13 @@
                     </table>
                 </div>
                 <div class="tab-pane fade" id="graficoeva" role="tabpanel" aria-labelledby="graficoeva-tab">
-                    <h1>GRAFICO EVALUACIONES</h1>
 
+                    <br>
                     <button type="button" class="btn btn-primary mx-2" (click)="ExportTOExcel()">EXCEL</button>
                     <button type="button" class="btn btn-primary" (click)="generarPDF()">PDF</button>
                     <br><br>
+                    <h1>GRAFICO EVALUACIONES</h1>
+                    <br>
                     <table class="table table-bordered">
                         <thead class="thead-dark">
                             <tr>

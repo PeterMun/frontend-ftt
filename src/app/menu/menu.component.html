@@ -51,10 +51,138 @@
 
 
 </div>
+<h5 class="card-header">DASHBOARD</h5>
 <br><br>
 <div style="text-align: center;">
     <button type="button" class="btn btn-primary" (click)="generarPDF()">PDF</button>
 </div>
+<br><br>
+<!-- MODIFICACION DASHBOARD -->
+<!-- PRIMERO CARDS -->
+
+<div class="row" style="text-align: center;">
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-primary shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                        <!-- total usuarios atendidos
+                        <h3>TOTAL USUARIOS ATENDIDOS</h3>-->
+                        <h3>TOTAL TICKETS EMITIDOS</h3>
+                    </div>
+                    <br>
+                    <div class="h5 mb-0 font-weight-bold text-gray-800">
+                        <h4 style="text-align: center;" *ngFor="let servgraf1 of servgraf1 ">{{ servgraf1.totaltickets }}</h4>
+                    </div>
+                    <!-- icono -->
+
+
+                </div>
+            </div>
+
+        </div>
+
+
+    </div>
+
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-primary shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                        <!-- Tiempo promedio de atención por servicio -->
+                        <h3>TOTAL USUARIOS ATENDIDOS</h3>
+                    </div>
+                    <div class="h5 mb-0 font-weight-bold text-gray-800">
+                        <h4 style="text-align: center;" *ngFor="let servgraf2 of servgraf2 ">{{ servgraf2.atendidos }}</h4>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+
+    </div>
+
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-primary shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                        <!-- Horas de mayor generación de turnos o tickets -->
+                        <h3> TOTAL USUARIOS NO ATENDIDOS</h3>
+                    </div>
+                    <div class="h5 mb-0 font-weight-bold text-gray-800" style="text-align: center;">
+                        <h4 *ngFor="let servgraf3 of servgraf3 ">{{ servgraf3.noatendidos }}</h4>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+
+    </div>
+
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-primary shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                        <!-- Evaluación General promedio de los servicios más atendidos -->
+                        <h3>PROMEDIO ATENCION</h3>
+                    </div>
+                    <div class="h5 mb-0 font-weight-bold text-gray-800" style="text-align: center;">
+                        <h4 *ngFor="let servgraf4 of servgraf4 ">{{ servgraf4.PromedioAtencion }}</h4>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+
+    </div>
+
+
+
+
+
+</div>
+
+<div class="row">
+    <div class="col-sm-6">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title"> Horas de mayor generación de turnos o tickets </h5>
+                <p class="card-text">Gráfico eje x las horas y eje Y cantidad de personas o tickets generados</p>
+                <div [hidden]="!chart">
+                    <canvas id="canvas2">{{chart}}</canvas>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-6">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Evaluación General promedio de los servicios más atendidos</h5>
+                <p class="card-text">Ej: Atención Medicina Nuclear: 50 personas Excelente – 10 Personas Muy bueno etc</p>
+                <div [hidden]="!chart">
+                    <canvas id="canvas4">{{chart}}</canvas>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+<br><br><br>
+
+<!-- MODIFICACION DASHBOARD -->
+
+
 <div id="graficos">
     <h1 style="text-align: center;">GRAFICOS ESTADISTICOS</h1>
     <hr>

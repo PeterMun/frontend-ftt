@@ -3,9 +3,12 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
 import  { Observable } from 'rxjs';
 
+
+
 @Injectable({
   providedIn: 'root'
 })
+
 export class AuthenticationService {
 
   userToken: string;
@@ -16,8 +19,11 @@ export class AuthenticationService {
 
 
 
+
   constructor(private http: HttpClient,
-    private router: Router) { }
+    private router: Router) {
+
+    }
 
 
     logout(){
@@ -32,6 +38,7 @@ export class AuthenticationService {
     this.router.navigateByUrl('/menu');
     //postmaster/admin123
   }
+
 
 
 
