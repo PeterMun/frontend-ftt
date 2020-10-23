@@ -2,7 +2,9 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
 import  { Observable } from 'rxjs';
+import { usuario } from '../models/usuario';
 
+import { map } from 'rxjs/operators'
 
 
 @Injectable({
@@ -11,7 +13,7 @@ import  { Observable } from 'rxjs';
 
 export class AuthenticationService {
 
-  userToken: string;
+  userToken: String;
 
 
   private URL = "https://backendftt.herokuapp.com";
@@ -23,11 +25,13 @@ export class AuthenticationService {
   constructor(private http: HttpClient,
     private router: Router) {
 
+      this.leerToken();
+
     }
 
 
     logout(){
-
+      localStorage.removeItem('token');
     }
 
 
@@ -35,8 +39,45 @@ export class AuthenticationService {
   loginUsuario(username:any,password:any){
     //return this.http.post<any>(this.URL + '/login');
     return this.http.post<any>(`${this.URL}/login/${username}/${password}`, {});
-    this.router.navigateByUrl('/menu');
+    //this.router.navigateByUrl('/menu');
     //postmaster/admin123
+  }
+
+  login(username:any,password:any){
+
+    const authData = {
+      ...usuario
+    };
+
+    return this.http.post<any>(`${this.URL}/login/${username}/${password}`, {})
+      .pipe(
+         map( resp => {
+           this.guardaToken( resp['token'] );
+           return resp;
+         } )
+      );
+
+
+  }
+
+  private guardaToken( token: string ){
+
+    this.userToken = token;
+    localStorage.setItem('token', token);
+
+  }
+
+  leerToken() {
+
+    if( localStorage.getItem('token') ){
+      this.userToken = localStorage.getItem('token')
+    }else{
+      this.userToken = '';
+    }
+
+    return this.userToken;
+
+
   }
 
 
@@ -44,10 +85,11 @@ export class AuthenticationService {
 
 
 
-  // estaAutenticado(): boolean{
+  estaAutenticado(): boolean{
 
+    return this.userToken.length > 2;
 
-  // }
+  }
 
 
 }

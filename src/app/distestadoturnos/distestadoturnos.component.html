@@ -37,7 +37,7 @@
                     <a class="nav-link" routerLink="/atendidosmultiples">Atendidos multiples <span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item active">
-                    <a class="navbar-brand" href="#">Cerrar Sesion</a>
+                    <a class="navbar-brand" (click)="salir()">Cerrar Sesion</a>
                     <!--  <button class="btn btn-outline-danger" >Cerrar Sesion</button> -->
                     <!-- (click)="salir()" -->
                 </li>
@@ -69,26 +69,30 @@
                     <button type="button" class="btn btn-primary mx-2" (click)="ExportTOExcel()">EXCEL</button>
                     <button type="button" class="btn btn-primary" (click)="generarPDF()">PDF</button>
                     <br><br>
-                    <table class="table table-striped">
-                        <thead class="thead-dark">
-                            <tr>
-                                <th scope="col">Servicio</th>
-                                <th scope="col">Fecha</th>
-                                <th scope="col">Total Turnos</th>
-                                <th scope="col">T. Atendidos</th>
-                                <th scope="col">No Atendidos</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr *ngFor="let servicio of servicio">
-                                <td>{{servicio.SERV_NOMBRE}}</td>
-                                <td>{{servicio.TURN_FECHA}}</td>
-                                <td>{{servicio.turnos}}</td>
-                                <td>{{servicio.ATENDIDOS}}</td>
-                                <td>{{servicio.NOATENDIDOS}}</td>
-                            </tr>
-                        </tbody>
-                    </table>
+                    <div class="container" id="content" #content #TABLE #table>
+                        <h1>DISTRIBUCION Y ESTADO DE TURNOS</h1>
+                        <table class="table table-striped">
+                            <thead class="thead-dark">
+                                <tr>
+                                    <th scope="col">Servicio</th>
+                                    <th scope="col">Fecha</th>
+                                    <th scope="col">Total Turnos</th>
+                                    <th scope="col">T. Atendidos</th>
+                                    <th scope="col">No Atendidos</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let servicio of servicio">
+                                    <td>{{servicio.SERV_NOMBRE}}</td>
+                                    <td>{{servicio.fecha}}</td>
+                                    <td>{{servicio.turnos}}</td>
+                                    <td>{{servicio.ATENDIDOS}}</td>
+                                    <td>{{servicio.NOATENDIDOS}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                    </div>
                 </div>
 
             </div>

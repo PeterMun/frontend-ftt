@@ -1,5 +1,7 @@
 import { Component, OnInit,ViewChild,ElementRef  } from '@angular/core';
 import { ServiceService } from '../services/service.service';
+import { AuthenticationService } from '../services/authentication.service';
+import { Router } from '@angular/router';
 
 import { turno } from '../models/turno';
 import { servicio } from '../models/servicio';
@@ -54,7 +56,10 @@ export class UsuariosComponent implements OnInit {
 
 
 
-  constructor(private serviceService: ServiceService) { }
+  constructor(private serviceService: ServiceService,
+    private auth: AuthenticationService,
+              private router: Router
+              ) { }
 
   ngOnInit(): void {
     this.leerturnosfecha();
@@ -63,6 +68,13 @@ export class UsuariosComponent implements OnInit {
     this.leeratencionusuario();
     /////
     this.getfiltrofecha();
+
+  }
+
+  salir(){
+
+    this.auth.logout();
+    this.router.navigateByUrl('/');
 
   }
 
@@ -258,7 +270,7 @@ getfiltrofecha(){
   console.log('esto es la fecha: ', fecha);
 
   this.serviceService.getfiltroturnosfecha(fecha).subscribe((serviciosearch: any) => {
-    console.log(serviciosearch.turnos);
+    //console.log(serviciosearch.turnos);
     this.serviciosearch = serviciosearch.turnos;
 
 
@@ -275,9 +287,8 @@ getfiltrofecha(){
 
     ////////
 
-    salir(){
 
-    }
+
 
 
 

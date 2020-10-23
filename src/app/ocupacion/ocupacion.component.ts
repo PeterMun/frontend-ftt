@@ -2,6 +2,8 @@ import { Component, OnInit, ViewChild,ElementRef } from '@angular/core';
 import { ServiceService } from '../services/service.service';
 import { turno } from '../models/turno';
 import { Chart } from 'chart.js' ;
+import { AuthenticationService } from '../services/authentication.service';
+import { Router } from '@angular/router';
 
 import * as FileSaver from 'file-saver';
 import * as XLSX from 'xlsx';
@@ -20,13 +22,17 @@ import html2canvas from 'html2canvas';
 export class OcupacionComponent implements OnInit {
   @ViewChild('content') content:ElementRef;
   @ViewChild('TABLE', { static: false }) TABLE: ElementRef;
+  @ViewChild('content1') content1:ElementRef;
+  @ViewChild('TABLE1', { static: false }) TABLE1: ElementRef;
 
   chart: any;
   tipo: string;
   servicio: any;
   serviciooc: any;
 
-  constructor(private serviceService: ServiceService) { }
+  constructor(private serviceService: ServiceService,
+    private auth: AuthenticationService,
+    private router: Router) { }
 
   ngOnInit(): void {
     this.tipo = 'pie';
@@ -34,6 +40,15 @@ export class OcupacionComponent implements OnInit {
     this.leergrafocupacion();
     this.leerocupacion();
   }
+
+  salir(){
+
+    this.auth.logout();
+    this.router.navigateByUrl('/');
+
+  }
+
+
 
   dibujar(){
     //this.serviceService
@@ -131,46 +146,73 @@ export class OcupacionComponent implements OnInit {
     });
   }
 
-      //excel
-      ExportTOExcel() {
-        const ws: XLSX.WorkSheet = XLSX.utils.table_to_sheet(this.TABLE.nativeElement);
-        const wb: XLSX.WorkBook = XLSX.utils.book_new();
-        XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
-        XLSX.writeFile(wb,  'prueba' + '_export_' + new  Date().toLocaleString() + EXCEL_EXTENSION);
-      }
+        //excel
+        ExportTOExcel() {
+          const ws: XLSX.WorkSheet = XLSX.utils.table_to_sheet(this.TABLE.nativeElement);
+          const wb: XLSX.WorkBook = XLSX.utils.book_new();
+          XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+          XLSX.writeFile(wb,  'ocupacionservicios' + '_export_' + new  Date().toLocaleString() + EXCEL_EXTENSION);
+        }
+        ExportTOExcel1() {
+          const ws: XLSX.WorkSheet = XLSX.utils.table_to_sheet(this.content1.nativeElement);
+          const wb: XLSX.WorkBook = XLSX.utils.book_new();
+          XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+          XLSX.writeFile(wb,  'graficoocupacion' + '_export_' + new  Date().toLocaleString() + EXCEL_EXTENSION);
+        }
 
-      generarPDF(){
-        let data = document.getElementById('graficos');
-        html2canvas(data).then(canvas =>{
-          var imgData = canvas.toDataURL('image/png');
-          var imgWidth = 210;
-          var pageHeight = 295;
-          var imgHeight = canvas.height * imgWidth / canvas.width;
-          var heightLeft = imgHeight;
-          var doc = new jsPDF('p', 'mm');
-          var position = 10; // give some top padding to first page
 
+
+    generarPDF(){
+      let data = document.getElementById('content');
+      html2canvas(data).then(canvas =>{
+        var imgData = canvas.toDataURL('image/png');
+        var imgWidth = 210;
+        var pageHeight = 295;
+        var imgHeight = canvas.height * imgWidth / canvas.width;
+        var heightLeft = imgHeight;
+        var doc = new jsPDF('p', 'mm');
+        var position = 10; // give some top padding to first page
+
+        doc.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+        heightLeft -= pageHeight;
+
+        while (heightLeft >= 0) {
+          position += heightLeft - imgHeight; // top padding for other pages
+          doc.addPage();
           doc.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
           heightLeft -= pageHeight;
+        }
+        doc.save( 'ocupacionservicios.pdf');
+      });
+  }
 
-          while (heightLeft >= 0) {
-            position += heightLeft - imgHeight; // top padding for other pages
-            doc.addPage();
-            doc.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
-            heightLeft -= pageHeight;
-          }
-          doc.save( 'peterprueba.pdf');
-        });
+  generarPDF1(){
+    let data = document.getElementById('content1');
+    html2canvas(data).then(canvas =>{
+      var imgData = canvas.toDataURL('image/png');
+      var imgWidth = 210;
+      var pageHeight = 295;
+      var imgHeight = canvas.height * imgWidth / canvas.width;
+      var heightLeft = imgHeight;
+      var doc = new jsPDF('p', 'mm');
+      var position = 10; // give some top padding to first page
 
+      doc.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+      heightLeft -= pageHeight;
 
-
-
-    }
-
-
-      salir(){
-
+      while (heightLeft >= 0) {
+        position += heightLeft - imgHeight; // top padding for other pages
+        doc.addPage();
+        doc.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+        heightLeft -= pageHeight;
       }
+      doc.save( 'ocupaciongraf.pdf');
+    });
+}
+
+
+
+
 
 
 

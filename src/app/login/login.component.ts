@@ -92,4 +92,33 @@ export class LoginComponent implements OnInit {
         console.log(form); */
       }
 
+
+      login2( form: NgForm, username, password ) {
+        if( form.invalid ){return;}
+
+        Swal.fire({
+          allowOutsideClick: false,
+          // type: 'info',
+          text: 'Espere por favor...'
+        });
+        Swal.showLoading();
+
+
+
+        this.authenticationService.login( username, password )
+          .subscribe( resp => {
+            //console.log(resp);
+            Swal.close();
+            this.router.navigateByUrl('/menu');
+          }, (err) => {
+            console.log(err.error.error.message);
+            Swal.fire({
+              title: 'Error!',
+              text: 'Usuario o password incorrecto',
+              icon: 'error'
+            })
+          } )
+
+      }
+
 }

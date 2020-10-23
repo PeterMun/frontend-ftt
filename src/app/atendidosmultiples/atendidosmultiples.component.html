@@ -37,7 +37,7 @@
                     <a class="nav-link" routerLink="/atendidosmultiples">Atendidos multiples <span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item active">
-                    <a class="navbar-brand" href="#">Cerrar Sesion</a>
+                    <a class="navbar-brand" (click)="salir()">Cerrar Sesion</a>
                     <!--  <button class="btn btn-outline-danger" >Cerrar Sesion</button> -->
                     <!-- (click)="salir()" -->
                 </li>
@@ -69,22 +69,25 @@
                     <button type="button" class="btn btn-primary mx-2" (click)="ExportTOExcel()">EXCEL</button>
                     <button type="button" class="btn btn-primary" (click)="generarPDF()">PDF</button>
                     <br><br>
-                    <table class="table table-striped">
-                        <thead class="thead-dark">
-                            <tr>
-                                <th scope="col">Usuario</th>
-                                <th scope="col">Atendidos</th>
+                    <div class="container" id="content" #content #TABLE #table>
+                        <h1>ATENDIDOS MULTIPLES</h1>
+                        <table class="table table-striped">
+                            <thead class="thead-dark">
+                                <tr>
+                                    <th scope="col">Usuario</th>
+                                    <th scope="col">Atendidos</th>
 
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr *ngFor="let servicio of servicio">
-                                <td>{{servicio.Usuario}}</td>
-                                <td>{{servicio.Atendidos}}</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let servicio of servicio">
+                                    <td>{{servicio.Usuario}}</td>
+                                    <td>{{servicio.Atendidos}}</td>
 
-                            </tr>
-                        </tbody>
-                    </table>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
 
             </div>

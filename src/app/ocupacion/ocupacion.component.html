@@ -37,7 +37,7 @@
                     <a class="nav-link" routerLink="/atendidosmultiples">Atendidos multiples <span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item active">
-                    <a class="navbar-brand" href="#">Cerrar Sesion</a>
+                    <a class="navbar-brand" (click)="salir()">Cerrar Sesion</a>
                     <!--  <button class="btn btn-outline-danger" >Cerrar Sesion</button> -->
                     <!-- (click)="salir()" -->
                 </li>
@@ -68,67 +68,73 @@
             <div class="tab-content" id="myTabContent">
 
                 <div class="tab-pane fade show active" id="ocservicios" role="tabpanel" aria-labelledby="ocservicios-tab">
-                    <h1>OCUPACION SERVICIOS</h1>
+
                     <br><br>
                     <button type="button" class="btn btn-primary mx-2" (click)="ExportTOExcel()">EXCEL</button>
                     <button type="button" class="btn btn-primary" (click)="generarPDF()">PDF</button>
                     <br><br>
                     <!-- <label *ngFor="let servicio of servicio"> Reporte realizado por: {{servicio.Nombre}} </label> -->
-                    <table class="table table-striped">
-                        <thead class="thead-dark">
-                            <tr>
-                                <th scope="col">Cod.</th>
-                                <th scope="col">Servicio</th>
-                                <th scope="col">T. Turno</th>
-                                <th scope="col">Porcentaje Ocupacion</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr *ngFor="let serviciooc of serviciooc">
-                                <td>{{serviciooc.SERV_CODIGO}}</td>
-                                <td>{{serviciooc.SERV_NOMBRE}}</td>
-                                <td>{{serviciooc.total}}</td>
-                                <td>{{serviciooc.PORCENTAJE}}</td>
+                    <div class="container" id="content" #content #TABLE #table>
+                        <h1>OCUPACION SERVICIOS</h1>
+                        <table class="table table-striped">
+                            <thead class="thead-dark">
+                                <tr>
+                                    <th scope="col">Cod.</th>
+                                    <th scope="col">Servicio</th>
+                                    <th scope="col">T. Turno</th>
+                                    <th scope="col">Porcentaje Ocupacion</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let serviciooc of serviciooc">
+                                    <td>{{serviciooc.SERV_CODIGO}}</td>
+                                    <td>{{serviciooc.SERV_NOMBRE}}</td>
+                                    <td>{{serviciooc.total}}</td>
+                                    <td>{{serviciooc.PORCENTAJE}} %</td>
 
-                            </tr>
-                        </tbody>
-                    </table>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
 
 
                 <div class="tab-pane fade" id="ocserviciosgraf" role="tabpanel" aria-labelledby="ocserviciosgraf-tab">
-                    <h1>OCUPACION SERVICIOS GRAFICO</h1>
+
                     <br><br>
-                    <button type="button" class="btn btn-primary mx-2" (click)="ExportTOExcel()">EXCEL</button>
-                    <button type="button" class="btn btn-primary" (click)="generarPDF()">PDF</button>
-                    <br><br>
+                    <!-- <button type="button" class="btn btn-primary mx-2" (click)="ExportTOExcel1()">EXCEL</button> -->
+                    <button type="button" class="btn btn-primary" (click)="generarPDF1()">PDF</button>
+                    <br>
+
                     <br><br>
                     <!-- <div [hidden]="!chart">
                         <canvas id="canvas">{{chart}}</canvas>
 
                     </div> -->
+                    <div class="container" id="content1" #content1>
+                        <h1>OCUPACION SERVICIOS GRAFICO</h1>
+                        <br>
+                        <div class="row">
+                            <!-- <h1>COLUMNA 1</h1> <br><br> -->
+                            <div class="col">
+                                <div [hidden]="!chart">
+                                    <canvas id="canvas">{{chart}}</canvas>
 
-                    <div class="row">
-                        <!-- <h1>COLUMNA 1</h1> <br><br> -->
-                        <div class="col">
-                            <div [hidden]="!chart">
-                                <canvas id="canvas">{{chart}}</canvas>
+                                </div>
+
+                            </div>
+
+                            <div class="col">
+                                <!--                             <h1>COLUMNA 2</h1> -->
+                                <div [hidden]="!chart">
+                                    <canvas id="canvas2">{{chart}}</canvas>
+
+                                </div>
 
                             </div>
 
                         </div>
-
-                        <div class="col">
-                            <!--                             <h1>COLUMNA 2</h1> -->
-                            <div [hidden]="!chart">
-                                <canvas id="canvas2">{{chart}}</canvas>
-
-                            </div>
-
-                        </div>
-
                     </div>
-
 
                 </div>
 

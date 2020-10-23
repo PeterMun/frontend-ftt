@@ -37,7 +37,7 @@
                     <a class="nav-link" routerLink="/atendidosmultiples">Atendidos multiples <span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item active">
-                    <a class="navbar-brand" href="#">Cerrar Sesion</a>
+                    <a class="navbar-brand" (click)="salir()">Cerrar Sesion</a>
                     <!--  <button class="btn btn-outline-danger" >Cerrar Sesion</button> -->
                     <!-- (click)="salir()" -->
                 </li>
@@ -68,24 +68,28 @@
                     <button type="button" class="btn btn-primary mx-2" (click)="ExportTOExcel()">EXCEL</button>
                     <button type="button" class="btn btn-primary" (click)="generarPDF()">PDF</button>
                     <br><br>
-                    <table class="table table-striped">
-                        <thead class="thead-dark">
-                            <tr>
-                                <th scope="col">Fecha</th>
-                                <th scope="col">Total Clientes</th>
+                    <div class="container" id="content" #content #TABLE #table>
+                        <h1>INGRESO CLIENTES</h1>
+
+                        <table class="table table-striped">
+                            <thead class="thead-dark">
+                                <tr>
+                                    <th scope="col">Fecha</th>
+                                    <th scope="col">Total Clientes</th>
 
 
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr *ngFor="let servicio of servicio">
-                                <td>{{servicio.turn_fecha}}</td>
-                                <td>{{servicio.clientes}}</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let servicio of servicio">
+                                    <td>{{servicio.turn_fecha}}</td>
+                                    <td>{{servicio.clientes}}</td>
 
 
-                            </tr>
-                        </tbody>
-                    </table>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
 
             </div>

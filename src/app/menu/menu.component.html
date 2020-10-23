@@ -37,8 +37,8 @@
                     <a class="nav-link" routerLink="/atendidosmultiples">Atendidos multiples <span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item active">
-                    <a class="navbar-brand" href="#">Cerrar Sesion</a>
-                    <!--  <button class="btn btn-outline-danger" >Cerrar Sesion</button> -->
+                    <a class="navbar-brand" (click)="salir()">Cerrar Sesion</a>
+                    <!-- <button class="btn btn-outline-danger" (click)="salir()">Cerrar Sesion</button> -->
                     <!-- (click)="salir()" -->
                 </li>
 
@@ -60,7 +60,7 @@
 <!-- MODIFICACION DASHBOARD -->
 <!-- PRIMERO CARDS -->
 
-<div class="row" style="text-align: center;">
+<div class="row" style="text-align: center;" id="graficos">
     <div class="col-xl-3 col-md-6 mb-4">
         <div class="card border-left-primary shadow h-100 py-2">
             <div class="card-body">
@@ -149,31 +149,37 @@
 
 
 
-</div>
+    <div class="align-content-lg-center" style="text-align: center;">
+        <div class="graf">
+            <h1>GRAFICOS ESTADISTICOS</h1>
+            <hr>
+        </div>
 
-<div class="row">
-    <div class="col-sm-6">
-        <div class="card">
-            <div class="card-body">
-                <h5 class="card-title"> Horas de mayor generación de turnos o tickets </h5>
-                <p class="card-text">Gráfico eje x las horas y eje Y cantidad de personas o tickets generados</p>
-                <div [hidden]="!chart">
-                    <canvas id="canvas2">{{chart}}</canvas>
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title"> Horas de mayor generación de turnos o tickets </h5>
+                        <!-- <p class="card-text">Gráfico eje x las horas y eje Y cantidad de personas o tickets generados</p> -->
+                        <div [hidden]="!chart">
+                            <canvas id="canvas1">{{chart}}</canvas>
 
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
-    </div>
-    <div class="col-sm-6">
-        <div class="card">
-            <div class="card-body">
-                <h5 class="card-title">Evaluación General promedio de los servicios más atendidos</h5>
-                <p class="card-text">Ej: Atención Medicina Nuclear: 50 personas Excelente – 10 Personas Muy bueno etc</p>
-                <div [hidden]="!chart">
-                    <canvas id="canvas4">{{chart}}</canvas>
+            <div class="col-sm-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Evaluación General</h5>
 
+                        <div [hidden]="!chart">
+                            <canvas id="canvas2">{{chart}}</canvas>
+
+                        </div>
+
+                    </div>
                 </div>
-
             </div>
         </div>
     </div>
@@ -181,108 +187,3 @@
 <br><br><br>
 
 <!-- MODIFICACION DASHBOARD -->
-
-
-<div id="graficos">
-    <h1 style="text-align: center;">GRAFICOS ESTADISTICOS</h1>
-    <hr>
-    <!-- cajas de los graficos pequeños-->
-    <div class="row">
-
-        <!-- <h1>COLUMNA 1</h1> <br><br> -->
-        <div class="col" height="300vw" width="150vw">
-            <h1 style="text-align: center;">TURNO POR FECHA</h1>
-
-            <div style="text-align: center;">
-
-
-                <input type="date" id="start" name="trip-start" max="2022-12-31">
-                <button (click)="getfiltrofecha()">fecha</button>
-                <br>
-                <p>
-                    Este grafico mostrara por fecha cuantos turnos han sido atendidos, por cada servicio
-                </p>
-            </div>
-
-            <hr><br>
-            <div [hidden]="!chart">
-                <canvas id="canvas">{{chart}}</canvas>
-
-            </div>
-
-        </div>
-
-        <div class="col">
-            <h1 style="text-align: center;">ATENCION USUARIO</h1>
-
-            <div style="text-align: center;">
-
-
-                <input type="date" id="start1" name="trip-start" max="2022-12-31">
-
-
-                <!-- <input type="month" /> -->
-
-                <button (click)="getatencionusuario()">fecha</button>
-            </div>
-            <hr>
-            <!--                             <h1>COLUMNA 2</h1> -->
-            <div [hidden]="!chart">
-                <canvas id="canvas2">{{chart}}</canvas>
-
-            </div>
-
-        </div>
-
-    </div>
-    <br><br>
-    <div class="row" style="text-align: center;">
-
-        <!-- <h1>COLUMNA 1</h1> <br><br> -->
-        <div class="col">
-            <h1 style="text-align: center;">PROMEDIOS DE ATENCION</h1>
-
-            <div>
-
-
-                <input type="date" id="start2" name="trip-start" max="2022-12-31">
-
-
-                <!-- <input type="month" /> -->
-
-                <button (click)="getpromediosatencion()">fecha</button>
-            </div>
-            <hr><br>
-            <div [hidden]="!chart">
-                <canvas id="canvas3">{{chart}}</canvas>
-
-            </div>
-
-        </div>
-
-
-        <div class="col">
-            <h1 style="text-align: center;">INGRESO DE CLIENTES</h1>
-
-            <div>
-
-
-                <input type="date" id="start3" name="trip-start" max="2022-12-31">
-
-
-                <!-- <input type="month" /> -->
-
-                <button (click)="getingresoclientes()">fecha</button>
-            </div>
-
-            <hr>
-            <!--                             <h1>COLUMNA 2</h1> -->
-            <div [hidden]="!chart">
-                <canvas id="canvas4">{{chart}}</canvas>
-
-            </div>
-
-        </div>
-
-    </div>
-</div>

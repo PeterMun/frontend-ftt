@@ -1,6 +1,9 @@
 import { Component, OnInit,ViewChild,ElementRef } from '@angular/core';
 import { ServiceService } from '../services/service.service';
 import { evaluacion } from '../models/evaluacion';
+import { AuthenticationService } from '../services/authentication.service';
+import { Router } from '@angular/router';
+
 
 import { Chart } from 'chart.js' ;
 
@@ -28,6 +31,8 @@ export class EvaluacionComponent implements OnInit {
   @ViewChild('TABLE2', { static: false }) TABLE2: ElementRef;
   @ViewChild('content3') content3:ElementRef;
   @ViewChild('TABLE3', { static: false }) TABLE3: ElementRef;
+  @ViewChild('content4') content4:ElementRef;
+  @ViewChild('TABLE4', { static: false }) TABLE4: ElementRef;
 
   //turno:turno[];
 
@@ -42,7 +47,9 @@ export class EvaluacionComponent implements OnInit {
   tipo: string;
   tipo2: string;
 
-  constructor(private serviceService: ServiceService) { }
+  constructor(private serviceService: ServiceService,
+    private auth: AuthenticationService,
+    private router: Router) { }
 
   ngOnInit(): void {
     this.leerpromservicio();
@@ -54,6 +61,14 @@ export class EvaluacionComponent implements OnInit {
     this.tipo = 'bar';
     this.leergraficosevabar();
     //this.leergraficosevapie();
+  }
+
+
+  salir(){
+
+    this.auth.logout();
+    this.router.navigateByUrl('/');
+
   }
 
 
@@ -107,8 +122,8 @@ export class EvaluacionComponent implements OnInit {
       //console.log(servicio5.turnos);
       this.servicio5 = servicio5.turnos;
 
-      let total =  servicio5.turnos.map(res => res.cuenta);
-      let evaluaciones = servicio5.turnos.map(res => res.Evaluacion);
+      let total =  servicio5.turnos.map(res => res.total);
+      let evaluaciones = servicio5.turnos.map(res => res.evaluacion);
 
 /*       console.log(total);
       console.log(evaluaciones); */
@@ -153,11 +168,37 @@ export class EvaluacionComponent implements OnInit {
       const ws: XLSX.WorkSheet = XLSX.utils.table_to_sheet(this.TABLE.nativeElement);
       const wb: XLSX.WorkBook = XLSX.utils.book_new();
       XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
-      XLSX.writeFile(wb,  'entradassalidas' + '_export_' + new  Date().toLocaleString() + EXCEL_EXTENSION);
+      XLSX.writeFile(wb,  'servicios' + '_export_' + new  Date().toLocaleString() + EXCEL_EXTENSION);
+    }
+    ExportTOExcel1() {
+      const ws: XLSX.WorkSheet = XLSX.utils.table_to_sheet(this.TABLE1.nativeElement);
+      const wb: XLSX.WorkBook = XLSX.utils.book_new();
+      XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+      XLSX.writeFile(wb,  'empleado' + '_export_' + new  Date().toLocaleString() + EXCEL_EXTENSION);
+    }
+    ExportTOExcel2() {
+      const ws: XLSX.WorkSheet = XLSX.utils.table_to_sheet(this.TABLE2.nativeElement);
+      const wb: XLSX.WorkBook = XLSX.utils.book_new();
+      XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+      XLSX.writeFile(wb,  'establecimiento' + '_export_' + new  Date().toLocaleString() + EXCEL_EXTENSION);
+    }
+    ExportTOExcel3() {
+      const ws: XLSX.WorkSheet = XLSX.utils.table_to_sheet(this.TABLE3.nativeElement);
+      const wb: XLSX.WorkBook = XLSX.utils.book_new();
+      XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+      XLSX.writeFile(wb,  'evalgrupo' + '_export_' + new  Date().toLocaleString() + EXCEL_EXTENSION);
+    }
+    ExportTOExcel4() {
+      const ws: XLSX.WorkSheet = XLSX.utils.table_to_sheet(this.TABLE4.nativeElement);
+      const wb: XLSX.WorkBook = XLSX.utils.book_new();
+      XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+      XLSX.writeFile(wb,  'graficoservicio' + '_export_' + new  Date().toLocaleString() + EXCEL_EXTENSION);
     }
 
+
+
     generarPDF(){
-      let data = document.getElementById('graficos');
+      let data = document.getElementById('content');
       html2canvas(data).then(canvas =>{
         var imgData = canvas.toDataURL('image/png');
         var imgWidth = 210;
@@ -176,17 +217,109 @@ export class EvaluacionComponent implements OnInit {
           doc.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
           heightLeft -= pageHeight;
         }
-        doc.save( 'peterprueba.pdf');
+        doc.save( 'servicios.pdf');
       });
-
-
-
-
   }
 
-    salir(){
+  generarPDF1(){
+    let data = document.getElementById('content1');
+    html2canvas(data).then(canvas =>{
+      var imgData = canvas.toDataURL('image/png');
+      var imgWidth = 210;
+      var pageHeight = 295;
+      var imgHeight = canvas.height * imgWidth / canvas.width;
+      var heightLeft = imgHeight;
+      var doc = new jsPDF('p', 'mm');
+      var position = 10; // give some top padding to first page
 
+      doc.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+      heightLeft -= pageHeight;
+
+      while (heightLeft >= 0) {
+        position += heightLeft - imgHeight; // top padding for other pages
+        doc.addPage();
+        doc.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+        heightLeft -= pageHeight;
+      }
+      doc.save( 'empleado.pdf');
+    });
+}
+
+
+generarPDF2(){
+  let data = document.getElementById('content2');
+  html2canvas(data).then(canvas =>{
+    var imgData = canvas.toDataURL('image/png');
+    var imgWidth = 210;
+    var pageHeight = 295;
+    var imgHeight = canvas.height * imgWidth / canvas.width;
+    var heightLeft = imgHeight;
+    var doc = new jsPDF('p', 'mm');
+    var position = 10; // give some top padding to first page
+
+    doc.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+    heightLeft -= pageHeight;
+
+    while (heightLeft >= 0) {
+      position += heightLeft - imgHeight; // top padding for other pages
+      doc.addPage();
+      doc.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+      heightLeft -= pageHeight;
     }
+    doc.save( 'establecimiento.pdf');
+  });
+}
+
+
+generarPDF3(){
+  let data = document.getElementById('content3');
+  html2canvas(data).then(canvas =>{
+    var imgData = canvas.toDataURL('image/png');
+    var imgWidth = 210;
+    var pageHeight = 295;
+    var imgHeight = canvas.height * imgWidth / canvas.width;
+    var heightLeft = imgHeight;
+    var doc = new jsPDF('p', 'mm');
+    var position = 10; // give some top padding to first page
+
+    doc.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+    heightLeft -= pageHeight;
+
+    while (heightLeft >= 0) {
+      position += heightLeft - imgHeight; // top padding for other pages
+      doc.addPage();
+      doc.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+      heightLeft -= pageHeight;
+    }
+    doc.save( 'evalgrupo.pdf');
+  });
+}
+
+generarPDF4(){
+  let data = document.getElementById('content4');
+  html2canvas(data).then(canvas =>{
+    var imgData = canvas.toDataURL('image/png');
+    var imgWidth = 210;
+    var pageHeight = 295;
+    var imgHeight = canvas.height * imgWidth / canvas.width;
+    var heightLeft = imgHeight;
+    var doc = new jsPDF('p', 'mm');
+    var position = 10; // give some top padding to first page
+
+    doc.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+    heightLeft -= pageHeight;
+
+    while (heightLeft >= 0) {
+      position += heightLeft - imgHeight; // top padding for other pages
+      doc.addPage();
+      doc.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+      heightLeft -= pageHeight;
+    }
+    doc.save( 'graficoservicio.pdf');
+  });
+}
+
+
 
 
 

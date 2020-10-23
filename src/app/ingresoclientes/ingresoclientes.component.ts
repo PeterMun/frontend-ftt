@@ -1,5 +1,7 @@
 import { Component, OnInit, ViewChild,ElementRef } from '@angular/core';
 import { ServiceService } from '../services/service.service';
+import { AuthenticationService } from '../services/authentication.service';
+import { Router } from '@angular/router';
 
 import * as FileSaver from 'file-saver';
 import * as XLSX from 'xlsx';
@@ -22,10 +24,20 @@ export class IngresoclientesComponent implements OnInit {
   servicio: any;
 
 
-  constructor(private serviceService: ServiceService) { }
+  constructor(private serviceService: ServiceService,
+    private auth: AuthenticationService,
+    private router: Router) { }
 
   ngOnInit(): void {
     this.leeringresoclientes();
+
+  }
+
+
+  salir(){
+
+    this.auth.logout();
+    this.router.navigateByUrl('/');
 
   }
 
@@ -42,11 +54,11 @@ export class IngresoclientesComponent implements OnInit {
         const ws: XLSX.WorkSheet = XLSX.utils.table_to_sheet(this.TABLE.nativeElement);
         const wb: XLSX.WorkBook = XLSX.utils.book_new();
         XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
-        XLSX.writeFile(wb,  'prueba' + '_export_' + new  Date().toLocaleString() + EXCEL_EXTENSION);
+        XLSX.writeFile(wb,  'ingresoclientes' + '_export_' + new  Date().toLocaleString() + EXCEL_EXTENSION);
       }
 
       generarPDF(){
-        let data = document.getElementById('graficos');
+        let data = document.getElementById('content');
         html2canvas(data).then(canvas =>{
           var imgData = canvas.toDataURL('image/png');
           var imgWidth = 210;
@@ -65,7 +77,7 @@ export class IngresoclientesComponent implements OnInit {
             doc.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
             heightLeft -= pageHeight;
           }
-          doc.save( 'peterprueba.pdf');
+          doc.save( 'ingresoclientes.pdf');
         });
 
 
@@ -73,9 +85,6 @@ export class IngresoclientesComponent implements OnInit {
 
     }
 
-      salir(){
-
-      }
 
 
 

@@ -37,7 +37,7 @@
                     <a class="nav-link" routerLink="/atendidosmultiples">Atendidos multiples <span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item active">
-                    <a class="navbar-brand" href="#">Cerrar Sesion</a>
+                    <a class="navbar-brand" (click)="salir()">Cerrar Sesion</a>
                     <!--  <button class="btn btn-outline-danger" >Cerrar Sesion</button> -->
                     <!-- (click)="salir()" -->
                 </li>
@@ -86,9 +86,10 @@
                         <br><br>
                     </div>
                     <!-- <label *ngFor="let servicio of servicio"> Reporte realizado por: {{servicio.Nombre}} </label> -->
-                    <h1>TIEMPO COMPLETO</h1>
+
                     <br>
-                    <div class="container" id="content1" #content1 #TABLE1 #table>
+                    <div class="container" id="content" #content #TABLE #table>
+                        <h1>TIEMPO COMPLETO</h1>
                         <table class="table table-striped">
                             <thead class="thead-dark">
                                 <tr>
@@ -119,125 +120,135 @@
 
 
                     <br>
-                    <button type="button" class="btn btn-primary mx-2" (click)="ExportTOExcel()">EXCEL</button>
-                    <button type="button" class="btn btn-primary" (click)="generarPDF()">PDF</button>
+                    <button type="button" class="btn btn-primary mx-2" (click)="ExportTOExcel1()">EXCEL</button>
+                    <button type="button" class="btn btn-primary" (click)="generarPDF1()">PDF</button>
                     <br><br>
                     <!-- <label *ngFor="let servicio of servicio"> Reporte realizado por: {{servicio.Nombre}} </label> -->
-                    <h1>PROMEDIO ATENCION</h1>
-                    <br>
-                    <table class="table table-striped">
-                        <thead class="thead-dark">
-                            <tr>
-                                <th scope="col">Cod.</th>
-                                <th scope="col">Servicios</th>
-                                <th scope="col">T. Promedio de Espera </th>
-                                <th scope="col">T. Promedio de Atencion</th>
+                    <div class="container" id="content1" #content1 #TABLE1 #table1>
+                        <h1>PROMEDIO ATENCION</h1>
+                        <br>
+                        <table class="table table-striped">
+                            <thead class="thead-dark">
+                                <tr>
+                                    <th scope="col">Cod.</th>
+                                    <th scope="col">Servicios</th>
+                                    <th scope="col">T. Promedio de Espera </th>
+                                    <th scope="col">T. Promedio de Atencion</th>
 
 
 
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr *ngFor="let serviciopa of serviciopa">
-                                <td>{{serviciopa.SERV_CODIGO}}</td>
-                                <td>{{serviciopa.SERV_NOMBRE}}</td>
-                                <td>{{serviciopa.PromedioEspera}}</td>
-                                <td>{{serviciopa.PromedioAtencion}}</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let serviciopa of serviciopa">
+                                    <td>{{serviciopa.SERV_CODIGO}}</td>
+                                    <td>{{serviciopa.SERV_NOMBRE}}</td>
+                                    <td>{{serviciopa.PromedioEspera}}</td>
+                                    <td>{{serviciopa.PromedioAtencion}}</td>
 
-                            </tr>
-                        </tbody>
-                    </table>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                     <!-- <h1>falta grafico</h1> -->
                 </div>
                 <div class="tab-pane fade" id="maxaten" role="tabpanel" aria-labelledby="maxaten-tab">
                     <br>
-                    <button type="button" class="btn btn-primary mx-2" (click)="ExportTOExcel()">EXCEL</button>
-                    <button type="button" class="btn btn-primary" (click)="generarPDF()">PDF</button>
+                    <button type="button" class="btn btn-primary mx-2" (click)="ExportTOExcel2()">EXCEL</button>
+                    <button type="button" class="btn btn-primary" (click)="generarPDF2()">PDF</button>
                     <br><br>
-                    <h1>MAXIMOS ATENCION</h1>
+
                     <br>
                     <!-- <label *ngFor="let servicio of servicio"> Reporte realizado por: {{servicio.Nombre}} </label> -->
-                    <table class="table table-striped">
-                        <thead class="thead-dark">
-                            <tr>
-                                <th scope="col">Cod.</th>
-                                <th scope="col">Servicio</th>
-                                <th scope="col">Fecha</th>
-                                <th scope="col">T. Maximo de Atencion</th>
+                    <div class="container" id="content2" #content2 #TABLE2 #table2>
+                        <h1>MAXIMOS ATENCION</h1>
+                        <table class="table table-striped">
+                            <thead class="thead-dark">
+                                <tr>
+                                    <th scope="col">Cod.</th>
+                                    <th scope="col">Servicio</th>
+                                    <th scope="col">Fecha</th>
+                                    <th scope="col">T. Maximo de Atencion</th>
 
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr *ngFor="let serviciomax of serviciomax">
-                                <td>{{serviciomax.SERV_CODIGO}}</td>
-                                <td>{{serviciomax.SERV_NOMBRE}}</td>
-                                <td>{{serviciomax.TURN_FECHA}}</td>
-                                <td>{{serviciomax.Maximo}}</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let serviciomax of serviciomax">
+                                    <td>{{serviciomax.SERV_CODIGO}}</td>
+                                    <td>{{serviciomax.SERV_NOMBRE}}</td>
+                                    <td>{{serviciomax.Fecha}}</td>
+                                    <td>{{serviciomax.Maximo}}</td>
 
-                            </tr>
-                        </tbody>
-                    </table>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                     <!-- <h1>falta grafico</h1> -->
                 </div>
                 <div class="tab-pane fade" id="atenservicio" role="tabpanel" aria-labelledby="atenservicio-tab">
 
                     <br>
-                    <button type="button" class="btn btn-primary mx-2" (click)="ExportTOExcel()">EXCEL</button>
-                    <button type="button" class="btn btn-primary" (click)="generarPDF()">PDF</button>
+                    <button type="button" class="btn btn-primary mx-2" (click)="ExportTOExcel3()">EXCEL</button>
+                    <button type="button" class="btn btn-primary" (click)="generarPDF3()">PDF</button>
                     <br><br>
                     <!-- <label *ngFor="let servicio of servicio"> Reporte realizado por: {{servicio.Nombre}} </label> -->
-                    <h1>ATENCION SERVICIO</h1>
+
                     <br>
-                    <table class="table table-striped">
-                        <thead class="thead-dark">
-                            <tr>
-                                <th scope="col">Nombre</th>
-                                <th scope="col">Servicio</th>
-                                <th scope="col">Atendidos</th>
+                    <div class="container" id="content3" #content3 #TABLE3 #table3>
+                        <h1>ATENCION SERVICIO</h1>
+                        <table class="table table-striped">
+                            <thead class="thead-dark">
+                                <tr>
+                                    <th scope="col">Nombre</th>
+                                    <th scope="col">Servicio</th>
+                                    <th scope="col">Atendidos</th>
 
 
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr *ngFor="let servicioatser of servicioatser">
-                                <td>{{servicioatser.Nombre}}</td>
-                                <td>{{servicioatser.Servicio}}</td>
-                                <td>{{servicioatser.Atendidos}}</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let servicioatser of servicioatser">
+                                    <td>{{servicioatser.Nombre}}</td>
+                                    <td>{{servicioatser.Servicio}}</td>
+                                    <td>{{servicioatser.Atendidos}}</td>
 
-                            </tr>
-                        </tbody>
-                    </table>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
                 <div class="tab-pane fade" id="graficoservicio" role="tabpanel" aria-labelledby="graficoservicio-tab">
 
                     <br>
-                    <button type="button" class="btn btn-primary mx-2" (click)="ExportTOExcel()">EXCEL</button>
-                    <button type="button" class="btn btn-primary" (click)="generarPDF()">PDF</button>
+                    <button type="button" class="btn btn-primary mx-2" (click)="ExportTOExcel4()">EXCEL</button>
+                    <button type="button" class="btn btn-primary" (click)="generarPDF4()">PDF</button>
                     <br><br>
                     <!-- <label *ngFor="let servicio of servicio"> Reporte realizado por: {{servicio.Nombre}} </label> -->
-                    <h1>GRAFICO</h1>
+
                     <br>
-                    <table class="table table-striped">
-                        <thead class="thead-dark">
-                            <tr>
-                                <th scope="col">Servicio</th>
-                                <th scope="col">Atendidos</th>
-                                <th scope="col">No Atendidos</th>
-                                <th scope="col">Total</th>
+                    <div class="container" id="content4" #content4 #TABLE4 #table4>
+                        <h1>GRAFICO</h1>
+                        <table class="table table-striped">
+                            <thead class="thead-dark">
+                                <tr>
+                                    <th scope="col">Servicio</th>
+                                    <th scope="col">Atendidos</th>
+                                    <th scope="col">No Atendidos</th>
+                                    <th scope="col">Total</th>
 
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr *ngFor="let serviciograf of serviciograf">
-                                <td>{{serviciograf.Servicio}}</td>
-                                <td>{{serviciograf.Atendidos}}</td>
-                                <td>{{serviciograf.No_Atendidos}}</td>
-                                <td>{{serviciograf.Total}}</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let serviciograf of serviciograf">
+                                    <td>{{serviciograf.Servicio}}</td>
+                                    <td>{{serviciograf.Atendidos}}</td>
+                                    <td>{{serviciograf.No_Atendidos}}</td>
+                                    <td>{{serviciograf.Total}}</td>
 
-                            </tr>
-                        </tbody>
-                    </table>
-
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </form>

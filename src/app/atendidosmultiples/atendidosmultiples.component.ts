@@ -1,5 +1,7 @@
 import { Component, OnInit,ViewChild,ElementRef } from '@angular/core';
 import { ServiceService } from '../services/service.service';
+import { AuthenticationService } from '../services/authentication.service';
+import { Router } from '@angular/router';
 
 import * as FileSaver from 'file-saver';
 import * as XLSX from 'xlsx';
@@ -22,10 +24,20 @@ export class AtendidosmultiplesComponent implements OnInit {
   servicio: any;
 
 
-  constructor(private serviceService: ServiceService) { }
+  constructor(private serviceService: ServiceService,
+    private auth: AuthenticationService,
+    private router: Router
+    ) { }
 
   ngOnInit(): void {
     this.leeratendidosmultiples();
+  }
+
+  salir(){
+
+    this.auth.logout();
+    this.router.navigateByUrl('/');
+
   }
 
   leeratendidosmultiples(){
@@ -41,11 +53,11 @@ export class AtendidosmultiplesComponent implements OnInit {
       const ws: XLSX.WorkSheet = XLSX.utils.table_to_sheet(this.TABLE.nativeElement);
       const wb: XLSX.WorkBook = XLSX.utils.book_new();
       XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
-      XLSX.writeFile(wb,  'entradassalidas' + '_export_' + new  Date().toLocaleString() + EXCEL_EXTENSION);
+      XLSX.writeFile(wb,  'atendidosmultiples' + '_export_' + new  Date().toLocaleString() + EXCEL_EXTENSION);
     }
 
     generarPDF(){
-      let data = document.getElementById('graficos');
+      let data = document.getElementById('content');
       html2canvas(data).then(canvas =>{
         var imgData = canvas.toDataURL('image/png');
         var imgWidth = 210;
@@ -64,7 +76,7 @@ export class AtendidosmultiplesComponent implements OnInit {
           doc.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
           heightLeft -= pageHeight;
         }
-        doc.save( 'peterprueba.pdf');
+        doc.save( 'atendidosmultiples.pdf');
       });
 
 
@@ -72,9 +84,6 @@ export class AtendidosmultiplesComponent implements OnInit {
 
   }
 
-    salir(){
-
-    }
 
 
 

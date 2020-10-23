@@ -37,7 +37,7 @@
                     <a class="nav-link" routerLink="/atendidosmultiples">Atendidos multiples <span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item active">
-                    <a class="navbar-brand" href="#">Cerrar Sesion</a>
+                    <a class="navbar-brand" (click)="salir()">Cerrar Sesion</a>
                     <!--  <button class="btn btn-outline-danger" >Cerrar Sesion</button> -->
                     <!-- (click)="salir()" -->
                 </li>
@@ -97,8 +97,8 @@
                         <h1>TURNO POR FECHA</h1>
                         <br>
 
-                        <input type="date" id="start" name="trip-start" max="2022-12-31">
-                        <button (click)="getfiltrofecha()">fecha</button>
+                        <!-- <input type="date" id="start" name="trip-start" max="2022-12-31">
+                        <button (click)="getfiltrofecha()">fecha</button> -->
                         <hr>
                         <table class="table table-striped">
                             <thead class="thead-dark">
@@ -164,8 +164,10 @@
                     <button type="button" class="btn btn-primary mx-2" (click)="ExportTOExcel()">EXCEL</button>
                     <button type="button" class="btn btn-primary" (click)="generarPDF3()">PDF</button>
                     <br>
-                    <h1>ENTRADAS Y SALIDAS</h1>
+
                     <div class="container" id="content3" #content #TABLE #table>
+                        <h1>ENTRADAS Y SALIDAS</h1>
+                        <hr>
                         <table id="table" class="table table-striped">
                             <thead class="thead-dark">
                                 <tr>
@@ -197,8 +199,10 @@
                     <button type="button" class="btn btn-primary mx-2" (click)="ExportTOExcel3()">EXCEL</button>
                     <button type="button" class="btn btn-primary" (click)="generarPDF4()">PDF</button>
                     <br>
-                    <h1>ATENCION USUARIO</h1>
+
                     <div class="container" id="content4" #content3 #TABLE3 #table>
+                        <h1>ATENCION USUARIO</h1>
+                        <hr>
                         <table class="table table-striped">
                             <thead class="thead-dark">
                                 <tr>
