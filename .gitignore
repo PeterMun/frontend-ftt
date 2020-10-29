@@ -9,6 +9,7 @@
 
 # dependencies
 /node_modules
+/pdfmake
 
 # profiling files
 chrome-profiler-events*.json
