@@ -10,6 +10,14 @@ import html2canvas from 'html2canvas';
 import {DatePickerDirective} from 'ng2-date-picker';
 import { AuthenticationService } from '../services/authentication.service';
 import { Router } from '@angular/router';
+import { Utils } from '../utils/util';
+
+///pdf
+import * as pdfMake from "pdfmake/build/pdfmake";
+import * as pdfFonts from 'pdfmake/build/vfs_fonts';
+import { usuario } from '../models/usuario';
+
+(<any>pdfMake).vfs = pdfFonts.pdfMake.vfs;
 
 
 @Component({
@@ -18,6 +26,8 @@ import { Router } from '@angular/router';
   styleUrls: ['./menu.component.scss']
 })
 export class MenuComponent implements OnInit {
+
+
 
   chart: any;
   tipo: string;
@@ -36,9 +46,33 @@ export class MenuComponent implements OnInit {
   grafeva: any;
   grafeva2: any;
 
+  p_color: any;
+
+  day = new Date().getDate();
+  month = new Date().getMonth() + 1;
+  year = new Date().getFullYear();
+
+  date = this.year+"-"+this.month+"-"+this.day;
+
+    // items de paginacion de la tabla
+    tamanio_pagina: number = 5;
+    numero_pagina: number = 1;
+    pageSizeOptions = [5, 10, 20, 50];
+
+
+    urlImagen: string;
+
+
+
+
+
+
+
 
   @ViewChild('dateDirectivePicker')
   datePickerDirective: DatePickerDirective;
+
+
 
   constructor(private serviceService: ServiceService,
               private auth: AuthenticationService,
@@ -46,6 +80,7 @@ export class MenuComponent implements OnInit {
 
   ngOnInit(): void {
     this.tipo = 'pie';
+
 
     // this.leergrafocupacion();
     //this.leergraficoturnos();
@@ -60,6 +95,12 @@ export class MenuComponent implements OnInit {
   /////
   this.graficopromedioatencion();
   this.leergraficosevabar();
+  ///
+
+  ///
+  Utils.getImageDataUrlFromLocalPath1('assets/logotickets.png').then(
+    result => this.urlImagen = result
+  )
 
 
   }
@@ -104,8 +145,10 @@ export class MenuComponent implements OnInit {
 
 ///////////////////////////////////////////////////
     gettotaltickets(){
-      this.serviceService.gettotaltickets().subscribe((servgraf1: any) => {
+
+      this.serviceService.gettotaltickets(this.date).subscribe((servgraf1: any) => {
         //console.log(servgraf1.turnos);
+        console.log(this.date);
         this.servgraf1 = servgraf1.turnos;
 
       });
@@ -144,7 +187,7 @@ export class MenuComponent implements OnInit {
 
     getgrafeva(){
       this.serviceService.getgrafeva().subscribe((grafeva: any) => {
-        console.log(grafeva.turnos);
+        //console.log(grafeva.turnos);
         this.grafeva = grafeva.turnos;
       });
 
@@ -237,6 +280,16 @@ export class MenuComponent implements OnInit {
 
     });
   }
+
+  /////////////////PDFMAKE
+
+  openPdf(){
+    const documentDefinition = { content: 'This is an sample PDF printed with pdfMake' };
+    pdfMake.createPdf(documentDefinition).open();
+  }
+
+
+
 
 
 

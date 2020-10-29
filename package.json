@@ -36,6 +36,7 @@
         "ng2-charts": "^2.3.3",
         "ng2-date-picker": "^10.0.0",
         "path": "^0.12.7",
+        "pdfmake": "^0.1.68",
         "rxjs": "~6.5.5",
         "sweetalert2": "^9.17.1",
         "tslib": "^2.0.0",

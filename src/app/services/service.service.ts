@@ -15,8 +15,8 @@ import { evaluacion } from '../models/evaluacion';
 })
 export class ServiceService {
 
-  //private URL = "http://127.0.0.1:3000";
-  private URL = "https://backendftt.herokuapp.com";
+  private URL = "http://127.0.0.1:3000";
+  //private URL = "https://backendftt.herokuapp.com";
 
 
   constructor(private http: HttpClient,
@@ -162,8 +162,8 @@ export class ServiceService {
   /////////////////////////////////
   //GRAFICOS EXTRA MENU
   ////////////////////////////////
-  gettotaltickets():Observable<servicio[]> {
-    return this.http.get<servicio[]>(this.URL + "/totaltickets");
+  gettotaltickets(fecha):Observable<servicio[]> {
+    return this.http.get<servicio[]>(this.URL + "/totaltickets/"+ fecha);
   }
   gettotalatendidos():Observable<servicio[]> {
     return this.http.get<servicio[]>(this.URL + "/totalatendidos");

@@ -7,10 +7,20 @@ import { Router } from '@angular/router';
 
 import { Chart } from 'chart.js' ;
 
+///pdf
+import * as pdfMake from "pdfmake/build/pdfmake";
+import * as pdfFonts from 'pdfmake/build/vfs_fonts';
+import { Utils } from '../utils/util';
+
+(<any>pdfMake).vfs = pdfFonts.pdfMake.vfs;
+
+/////////////////////
+
 import * as FileSaver from 'file-saver';
 import * as XLSX from 'xlsx';
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
+import { Label } from 'ng2-charts';
 
 const EXCEL_TYPE = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
 const EXCEL_EXTENSION = '.xlsx';
@@ -47,6 +57,25 @@ export class EvaluacionComponent implements OnInit {
   tipo: string;
   tipo2: string;
 
+  p_color: any;
+
+
+  // items de paginacion de la tabla
+  tamanio_pagina: number = 5;
+  numero_pagina: number = 1;
+  pageSizeOptions = [5, 10, 20, 50];
+
+  day = new Date().getDate();
+  month = new Date().getMonth() + 1;
+  year = new Date().getFullYear();
+
+  date = this.year+"-"+this.month+"-"+this.day;
+
+
+  urlImagen: string;
+
+
+
   constructor(private serviceService: ServiceService,
     private auth: AuthenticationService,
     private router: Router) { }
@@ -54,6 +83,9 @@ export class EvaluacionComponent implements OnInit {
   ngOnInit(): void {
     this.leerpromservicio();
     this.leermaxminservicio();
+
+    this.leermaxminempleado();
+    this.leerempleado();
     //
     //
     this.leerestablecimientos();
@@ -61,6 +93,11 @@ export class EvaluacionComponent implements OnInit {
     this.tipo = 'bar';
     this.leergraficosevabar();
     //this.leergraficosevapie();
+
+    Utils.getImageDataUrlFromLocalPath1('assets/logotickets.png').then(
+      result => this.urlImagen = result
+    )
+
   }
 
 
@@ -90,7 +127,7 @@ export class EvaluacionComponent implements OnInit {
 
   leerempleado(){
     this.serviceService.getprmediosempleado().subscribe((servicio2: any) => {
-      //console.log(servicio1.turnos);
+      //console.log(servicio2.turnos);
       this.servicio2 = servicio2.turnos;
     });
   }
@@ -318,6 +355,674 @@ generarPDF4(){
     doc.save( 'graficoservicio.pdf');
   });
 }
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+generarPdf(action = 'open', pdf: number) {
+
+  let documentDefinition;
+
+  if (pdf === 1) {
+    documentDefinition = this.getDocumentservicios();
+  }
+
+  switch (action) {
+    case 'open': pdfMake.createPdf(documentDefinition).open(); break;
+    case 'print': pdfMake.createPdf(documentDefinition).print(); break;
+    case 'download': pdfMake.createPdf(documentDefinition).download(); break;
+
+    default: pdfMake.createPdf(documentDefinition).open(); break;
+  }
+
+}
+
+
+
+
+getDocumentservicios(){
+  //sessionStorage.setItem('Usuario', 'Postmaster');
+  let f = new Date();
+  f.setUTCHours(f.getHours())
+  this.date = f.toJSON();
+  console.log(this.date);
+
+  return {
+    //pageOrientation: 'landscape',
+    watermark: { text: 'Tickets', color: 'blue', opacity: 0.1, bold: true, italics: false },
+    header: { text: 'Impreso por:  ' + 'Postmaster', margin: 10, fontSize: 9, opacity: 0.3 },
+
+    footer: function (currentPage, pageCount, fecha) {
+      fecha = f.toJSON().split("T")[0];
+      var timer = f.toJSON().split("T")[1].slice(0, 5);
+      return [
+        {
+          margin: [10, -2, 10, 0],
+          columns: [
+            'Fecha: ' + fecha + ' Hora: ' + timer,
+            {
+              text: [
+                {
+                  text: '© Pag ' + currentPage.toString() + ' of ' + pageCount, alignment: 'right', color: 'blue', opacity: 0.5
+                }
+              ],
+            }
+          ],
+          fontSize: 9, color: '#A4B8FF',
+        }
+      ]
+    },
+
+    content: [
+      {
+        columns: [
+          {
+            image: this.urlImagen,
+            width: 90,
+            height: 40,
+          },
+          {
+            width: '*',
+            text: 'Casa Pazmiño',
+            bold: true,
+            fontSize: 20,
+            margin: [100, 20, 0, 0],
+          }
+        ]
+      },
+      {
+        style: 'subtitulos',
+        text: 'Reporte - Evaluacion Servicio y Maximos y Minimos'
+      },
+      this.servicios(this.servicio),
+      this.maxmin(this.servicio1)
+    ],
+    styles: {
+      tableTotal: { fontSize: 30, bold: true, alignment: 'center', fillColor: this.p_color },
+      tableHeader: { fontSize: 9, bold: true, alignment: 'center', fillColor: this.p_color },
+      itemsTable: { fontSize: 8, margin: [0, 3, 0, 3],  },
+      itemsTableInfo: { fontSize: 10, margin: [0, 5, 0, 5] },
+      subtitulos: { fontSize: 16, alignment: 'center', margin: [0, 5, 0, 10] },
+      tableMargin: { margin: [0, 20, 0, 0], alignment: "center" },
+      CabeceraTabla: { fontSize: 12, alignment: 'center', margin: [0, 8, 0, 8], fillColor: this.p_color},
+      quote: { margin: [5, -2, 0, -2], italics: true },
+      small: { fontSize: 8, color: 'blue', opacity: 0.5 }
+    }
+
+
+  }
+}
+
+
+servicios(servicio: any[]) {
+  //console.log(servicio);
+  return {
+    style: 'tableMargin',
+    table: {
+      headerRows: 1,
+      widths: ['*', 'auto', 'auto', 'auto', 'auto', 'auto', 'auto', 'auto', 'auto'],
+
+      body: [
+        [
+          { text: 'Usuario', style: 'tableHeader' },
+          { text: 'Fecha', style: 'tableHeader' },
+          { text: 'Excelente', style: 'tableHeader' },
+          { text: 'Muy Bueno', style: 'tableHeader' },
+          { text: 'Bueno', style: 'tableHeader' },
+          { text: 'Regular', style: 'tableHeader' },
+          { text: 'Malo', style: 'tableHeader' },
+          { text: 'Total', style: 'tableHeader' },
+          { text: 'Promedio', style: 'tableHeader' },
+        ],
+        ...servicio.map(res => {
+          return [
+            { style: 'itemsTable', text: res.usua_nombre },
+            { style: 'itemsTable', text: res.fecha },
+            { style: 'itemsTable', text: res.Excelente },
+            { style: 'itemsTable', text: res.Muy_Bueno },
+            { style: 'itemsTable', text: res.Bueno },
+            { style: 'itemsTable', text: res.Regular },
+            { style: 'itemsTable', text: res.Malo },
+            { style: 'itemsTable', text: res.Total },
+            { style: 'itemsTable', text: res.Promedio }
+          ]
+
+        })
+      ]
+
+    },
+    layout: {
+      fillColor: function (rowIndex) {
+        return (rowIndex % 2 === 0) ? '#E5E7E9' : null;
+      }
+    }
+  }
+
+}
+
+
+maxmin(servicio: any[]) {
+  //console.log(servicio);
+  return {
+    style: 'tableMargin',
+    table: {
+      Label: 'Maximos y minimos',
+      headerRows: 1,
+      widths: ['*', 'auto', 'auto', 'auto', 'auto', 'auto', 'auto', 'auto', 'auto', 'auto'],
+
+      body: [
+        [
+          { text: 'Usuario', style: 'tableHeader' },
+          { text: 'Fecha', style: 'tableHeader' },
+          { text: 'Excelente', style: 'tableHeader' },
+          { text: 'Muy Bueno', style: 'tableHeader' },
+          { text: 'Bueno', style: 'tableHeader' },
+          { text: 'Regular', style: 'tableHeader' },
+          { text: 'Malo', style: 'tableHeader' },
+          { text: 'Total', style: 'tableHeader' },
+          { text: 'Max.', style: 'tableHeader' },
+          { text: 'Min.', style: 'tableHeader' },
+        ],
+        ...servicio.map(res => {
+          return [
+            { style: 'itemsTable', text: res.usua_nombre },
+            { style: 'itemsTable', text: res.fecha },
+            { style: 'itemsTable', text: res.Excelente },
+            { style: 'itemsTable', text: res.Muy_Bueno },
+            { style: 'itemsTable', text: res.Bueno },
+            { style: 'itemsTable', text: res.Regular },
+            { style: 'itemsTable', text: res.Malo },
+            { style: 'itemsTable', text: res.Total },
+            { style: 'itemsTable', text: res.max },
+            { style: 'itemsTable', text: res.min }
+          ]
+
+        })
+      ]
+
+    },
+    layout: {
+      fillColor: function (rowIndex) {
+        return (rowIndex % 2 === 0) ? '#E5E7E9' : null;
+      }
+    }
+  }
+
+}
+
+
+generarPdf1(action = 'open', pdf: number) {
+
+  let documentDefinition;
+
+  if (pdf === 1) {
+    documentDefinition = this.getDocumentempleado();
+  }
+
+  switch (action) {
+    case 'open': pdfMake.createPdf(documentDefinition).open(); break;
+    case 'print': pdfMake.createPdf(documentDefinition).print(); break;
+    case 'download': pdfMake.createPdf(documentDefinition).download(); break;
+
+    default: pdfMake.createPdf(documentDefinition).open(); break;
+  }
+
+}
+
+
+
+
+getDocumentempleado(){
+  //sessionStorage.setItem('Usuario', 'Postmaster');
+  let f = new Date();
+  f.setUTCHours(f.getHours())
+  this.date = f.toJSON();
+  console.log(this.date);
+
+  return {
+    //pageOrientation: 'landscape',
+    watermark: { text: 'Tickets', color: 'blue', opacity: 0.1, bold: true, italics: false },
+    header: { text: 'Impreso por:  ' + 'Postmaster', margin: 10, fontSize: 9, opacity: 0.3 },
+
+    footer: function (currentPage, pageCount, fecha) {
+      fecha = f.toJSON().split("T")[0];
+      var timer = f.toJSON().split("T")[1].slice(0, 5);
+      return [
+        {
+          margin: [10, -2, 10, 0],
+          columns: [
+            'Fecha: ' + fecha + ' Hora: ' + timer,
+            {
+              text: [
+                {
+                  text: '© Pag ' + currentPage.toString() + ' of ' + pageCount, alignment: 'right', color: 'blue', opacity: 0.5
+                }
+              ],
+            }
+          ],
+          fontSize: 9, color: '#A4B8FF',
+        }
+      ]
+    },
+
+    content: [
+      {
+        columns: [
+          {
+            image: this.urlImagen,
+            width: 90,
+            height: 40,
+          },
+          {
+            width: '*',
+            text: 'Casa Pazmiño',
+            bold: true,
+            fontSize: 20,
+            margin: [100, 20, 0, 0],
+          }
+        ]
+      },
+      {
+        style: 'subtitulos',
+        text: 'Reporte - Evaluacion Empleado y Maximos y Minimos'
+      },
+      this.empleado(this.servicio2),
+      this.maxmine(this.servicio3)
+    ],
+    styles: {
+      tableTotal: { fontSize: 30, bold: true, alignment: 'center', fillColor: this.p_color },
+      tableHeader: { fontSize: 9, bold: true, alignment: 'center', fillColor: this.p_color },
+      itemsTable: { fontSize: 8, margin: [0, 3, 0, 3],  },
+      itemsTableInfo: { fontSize: 10, margin: [0, 5, 0, 5] },
+      subtitulos: { fontSize: 16, alignment: 'center', margin: [0, 5, 0, 10] },
+      tableMargin: { margin: [0, 20, 0, 0], alignment: "center" },
+      CabeceraTabla: { fontSize: 12, alignment: 'center', margin: [0, 8, 0, 8], fillColor: this.p_color},
+      quote: { margin: [5, -2, 0, -2], italics: true },
+      small: { fontSize: 8, color: 'blue', opacity: 0.5 }
+    }
+
+
+  }
+}
+
+
+empleado(servicio: any[]) {
+  //console.log(servicio);
+  return {
+    style: 'tableMargin',
+    table: {
+      headerRows: 1,
+      widths: ['*', 'auto', 'auto', 'auto', 'auto', 'auto', 'auto', 'auto', 'auto'],
+
+      body: [
+        [
+          { text: 'Usuario', style: 'tableHeader' },
+          { text: 'Fecha', style: 'tableHeader' },
+          { text: 'Excelente', style: 'tableHeader' },
+          { text: 'Muy Bueno', style: 'tableHeader' },
+          { text: 'Bueno', style: 'tableHeader' },
+          { text: 'Regular', style: 'tableHeader' },
+          { text: 'Malo', style: 'tableHeader' },
+          { text: 'Total', style: 'tableHeader' },
+          { text: 'Promedio', style: 'tableHeader' },
+        ],
+        ...servicio.map(res => {
+          return [
+            { style: 'itemsTable', text: res.usua_nombre },
+            { style: 'itemsTable', text: res.fecha },
+            { style: 'itemsTable', text: res.Excelente },
+            { style: 'itemsTable', text: res.Muy_Bueno },
+            { style: 'itemsTable', text: res.Bueno },
+            { style: 'itemsTable', text: res.Regular },
+            { style: 'itemsTable', text: res.Malo },
+            { style: 'itemsTable', text: res.Total },
+            { style: 'itemsTable', text: res.Promedio }
+          ]
+
+        })
+      ]
+
+    },
+    layout: {
+      fillColor: function (rowIndex) {
+        return (rowIndex % 2 === 0) ? '#E5E7E9' : null;
+      }
+    }
+  }
+
+}
+
+
+maxmine(servicio: any[]) {
+  //console.log(servicio);
+  return {
+    style: 'tableMargin',
+    table: {
+      Label: 'Maximos y minimos',
+      headerRows: 1,
+      widths: ['*', 'auto', 'auto', 'auto', 'auto', 'auto', 'auto', 'auto', 'auto', 'auto'],
+
+      body: [
+        [
+          { text: 'Usuario', style: 'tableHeader' },
+          { text: 'Fecha', style: 'tableHeader' },
+          { text: 'Excelente', style: 'tableHeader' },
+          { text: 'Muy Bueno', style: 'tableHeader' },
+          { text: 'Bueno', style: 'tableHeader' },
+          { text: 'Regular', style: 'tableHeader' },
+          { text: 'Malo', style: 'tableHeader' },
+          { text: 'Total', style: 'tableHeader' },
+          { text: 'Max.', style: 'tableHeader' },
+          { text: 'Min.', style: 'tableHeader' },
+        ],
+        ...servicio.map(res => {
+          return [
+            { style: 'itemsTable', text: res.usua_nombre },
+            { style: 'itemsTable', text: res.fecha },
+            { style: 'itemsTable', text: res.Excelente },
+            { style: 'itemsTable', text: res.Muy_Bueno },
+            { style: 'itemsTable', text: res.Bueno },
+            { style: 'itemsTable', text: res.Regular },
+            { style: 'itemsTable', text: res.Malo },
+            { style: 'itemsTable', text: res.Total },
+            { style: 'itemsTable', text: res.max },
+            { style: 'itemsTable', text: res.min }
+          ]
+
+        })
+      ]
+
+    },
+    layout: {
+      fillColor: function (rowIndex) {
+        return (rowIndex % 2 === 0) ? '#E5E7E9' : null;
+      }
+    }
+  }
+
+}
+
+
+generarPdf2(action = 'open', pdf: number) {
+
+  let documentDefinition;
+
+  if (pdf === 1) {
+    documentDefinition = this.getDocumentestablecimiento();
+  }
+
+  switch (action) {
+    case 'open': pdfMake.createPdf(documentDefinition).open(); break;
+    case 'print': pdfMake.createPdf(documentDefinition).print(); break;
+    case 'download': pdfMake.createPdf(documentDefinition).download(); break;
+
+    default: pdfMake.createPdf(documentDefinition).open(); break;
+  }
+
+}
+
+
+
+
+getDocumentestablecimiento(){
+  //sessionStorage.setItem('Usuario', 'Postmaster');
+  let f = new Date();
+  f.setUTCHours(f.getHours())
+  this.date = f.toJSON();
+  console.log(this.date);
+
+  return {
+    //pageOrientation: 'landscape',
+    watermark: { text: 'Tickets', color: 'blue', opacity: 0.1, bold: true, italics: false },
+    header: { text: 'Impreso por:  ' + 'Postmaster', margin: 10, fontSize: 9, opacity: 0.3 },
+
+    footer: function (currentPage, pageCount, fecha) {
+      fecha = f.toJSON().split("T")[0];
+      var timer = f.toJSON().split("T")[1].slice(0, 5);
+      return [
+        {
+          margin: [10, -2, 10, 0],
+          columns: [
+            'Fecha: ' + fecha + ' Hora: ' + timer,
+            {
+              text: [
+                {
+                  text: '© Pag ' + currentPage.toString() + ' of ' + pageCount, alignment: 'right', color: 'blue', opacity: 0.5
+                }
+              ],
+            }
+          ],
+          fontSize: 9, color: '#A4B8FF',
+        }
+      ]
+    },
+
+    content: [
+      {
+        columns: [
+          {
+            image: this.urlImagen,
+            width: 90,
+            height: 40,
+          },
+          {
+            width: '*',
+            text: 'Casa Pazmiño',
+            bold: true,
+            fontSize: 20,
+            margin: [100, 20, 0, 0],
+          }
+        ]
+      },
+      {
+        style: 'subtitulos',
+        text: 'Reporte - Evaluación Establecimiento'
+      },
+      this.establecimientos(this.servicio4),
+
+    ],
+    styles: {
+      tableTotal: { fontSize: 30, bold: true, alignment: 'center', fillColor: this.p_color },
+      tableHeader: { fontSize: 9, bold: true, alignment: 'center', fillColor: this.p_color },
+      itemsTable: { fontSize: 8, margin: [0, 3, 0, 3],  },
+      itemsTableInfo: { fontSize: 10, margin: [0, 5, 0, 5] },
+      subtitulos: { fontSize: 16, alignment: 'center', margin: [0, 5, 0, 10] },
+      tableMargin: { margin: [0, 20, 0, 0], alignment: "center" },
+      CabeceraTabla: { fontSize: 12, alignment: 'center', margin: [0, 8, 0, 8], fillColor: this.p_color},
+      quote: { margin: [5, -2, 0, -2], italics: true },
+      small: { fontSize: 8, color: 'blue', opacity: 0.5 }
+    }
+
+
+  }
+}
+
+
+establecimientos(servicio: any[]) {
+  //console.log(servicio);
+  return {
+    style: 'tableMargin',
+    table: {
+      headerRows: 1,
+      widths: ['*', 'auto', 'auto', 'auto', 'auto', 'auto', 'auto'],
+
+      body: [
+        [
+          { text: 'Fecha', style: 'tableHeader' },
+          { text: 'Excelente', style: 'tableHeader' },
+          { text: 'Muy Bueno', style: 'tableHeader' },
+          { text: 'Bueno', style: 'tableHeader' },
+          { text: 'Regular', style: 'tableHeader' },
+          { text: 'Malo', style: 'tableHeader' },
+          { text: 'Total', style: 'tableHeader' },
+
+        ],
+        ...servicio.map(res => {
+          return [
+            { style: 'itemsTable', text: res.fecha },
+            { style: 'itemsTable', text: res.Excelente },
+            { style: 'itemsTable', text: res.Muy_Bueno },
+            { style: 'itemsTable', text: res.Bueno },
+            { style: 'itemsTable', text: res.Regular },
+            { style: 'itemsTable', text: res.Malo },
+            { style: 'itemsTable', text: res.Total }
+          ]
+
+        })
+      ]
+
+    },
+    layout: {
+      fillColor: function (rowIndex) {
+        return (rowIndex % 2 === 0) ? '#E5E7E9' : null;
+      }
+    }
+  }
+
+}
+
+
+
+generarPdf3(action = 'open', pdf: number) {
+
+  let documentDefinition;
+
+  if (pdf === 1) {
+    documentDefinition = this.getDocumentevagrupo();
+  }
+
+  switch (action) {
+    case 'open': pdfMake.createPdf(documentDefinition).open(); break;
+    case 'print': pdfMake.createPdf(documentDefinition).print(); break;
+    case 'download': pdfMake.createPdf(documentDefinition).download(); break;
+
+    default: pdfMake.createPdf(documentDefinition).open(); break;
+  }
+
+}
+
+
+
+
+getDocumentevagrupo(){
+  //sessionStorage.setItem('Usuario', 'Postmaster');
+  let f = new Date();
+  f.setUTCHours(f.getHours())
+  this.date = f.toJSON();
+  console.log(this.date);
+
+  return {
+    //pageOrientation: 'landscape',
+    watermark: { text: 'Tickets', color: 'blue', opacity: 0.1, bold: true, italics: false },
+    header: { text: 'Impreso por:  ' + 'Postmaster', margin: 10, fontSize: 9, opacity: 0.3 },
+
+    footer: function (currentPage, pageCount, fecha) {
+      fecha = f.toJSON().split("T")[0];
+      var timer = f.toJSON().split("T")[1].slice(0, 5);
+      return [
+        {
+          margin: [10, -2, 10, 0],
+          columns: [
+            'Fecha: ' + fecha + ' Hora: ' + timer,
+            {
+              text: [
+                {
+                  text: '© Pag ' + currentPage.toString() + ' of ' + pageCount, alignment: 'right', color: 'blue', opacity: 0.5
+                }
+              ],
+            }
+          ],
+          fontSize: 9, color: '#A4B8FF',
+        }
+      ]
+    },
+
+    content: [
+      {
+        columns: [
+          {
+            image: this.urlImagen,
+            width: 90,
+            height: 40,
+          },
+          {
+            width: '*',
+            text: 'Casa Pazmiño',
+            bold: true,
+            fontSize: 20,
+            margin: [100, 20, 0, 0],
+          }
+        ]
+      },
+      {
+        style: 'subtitulos',
+        text: 'Reporte - Evaluación por Grupo'
+      },
+      this.evagrupo(this.servicioe),
+
+    ],
+    styles: {
+      tableTotal: { fontSize: 30, bold: true, alignment: 'center', fillColor: this.p_color },
+      tableHeader: { fontSize: 9, bold: true, alignment: 'center', fillColor: this.p_color },
+      itemsTable: { fontSize: 8, margin: [0, 3, 0, 3],  },
+      itemsTableInfo: { fontSize: 10, margin: [0, 5, 0, 5] },
+      subtitulos: { fontSize: 16, alignment: 'center', margin: [0, 5, 0, 10] },
+      tableMargin: { margin: [0, 20, 0, 0], alignment: "center" },
+      CabeceraTabla: { fontSize: 12, alignment: 'center', margin: [0, 8, 0, 8], fillColor: this.p_color},
+      quote: { margin: [5, -2, 0, -2], italics: true },
+      small: { fontSize: 8, color: 'blue', opacity: 0.5 }
+    }
+
+
+  }
+}
+
+
+evagrupo(servicio: any[]) {
+  //console.log(servicio);
+  return {
+    style: 'tableMargin',
+    table: {
+      headerRows: 1,
+      widths: ['*', 'auto', 'auto', 'auto', 'auto', 'auto'],
+
+      body: [
+        [
+          { text: 'Nombre', style: 'tableHeader' },
+          { text: 'Fecha', style: 'tableHeader' },
+          { text: 'Bueno', style: 'tableHeader' },
+          { text: 'Malo', style: 'tableHeader' },
+          { text: 'Total', style: 'tableHeader' },
+          { text: 'Promedio', style: 'tableHeader' }
+
+        ],
+        ...servicio.map(res => {
+          return [
+            { style: 'itemsTable', text: res.usua_nombre },
+            { style: 'itemsTable', text: res.fecha },
+            { style: 'itemsTable', text: res.Bueno },
+            { style: 'itemsTable', text: res.Malo },
+            { style: 'itemsTable', text: res.Total },
+            { style: 'itemsTable', text: res.Promedio }
+          ]
+
+        })
+      ]
+
+    },
+    layout: {
+      fillColor: function (rowIndex) {
+        return (rowIndex % 2 === 0) ? '#E5E7E9' : null;
+      }
+    }
+  }
+
+}
+
+//PDF DE GRAFICOS
+
+
+
 
 
 

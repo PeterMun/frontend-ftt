@@ -79,7 +79,8 @@
                     <!-- <h1>TURNO POR FECHA</h1> -->
                     <br>
                     <button type="button" class="btn btn-primary mx-2" (click)="ExportTOExcel1()">EXCEL</button>
-                    <button type="button" class="btn btn-primary" (click)="generarPDF1()">PDF</button>
+                    <!-- <button type="button" class="btn btn-primary" (click)="generarPDF1()">PDF</button> -->
+                    <button type="button" class="btn btn-primary" (click)="generarPdf('hola', 1)">PDF</button>
                     <br><br>
                     <!--
                     <input type="text" class="forms-control" placeholder="buscar.." [(ngModel)]="filterPost" name="filterPost"> -->
@@ -130,7 +131,8 @@
                     <span></span>
                     <br>
                     <button type="button" class="btn btn-primary mx-2" (click)="ExportTOExcel2()">EXCEL</button>
-                    <button type="button" class="btn btn-primary" (click)="generarPDF2()">PDF</button>
+                    <!-- <button type="button" class="btn btn-primary" (click)="generarPDF2()">PDF</button> -->
+                    <button type="button" class="btn btn-primary" (click)="generarPdf1('hola', 1)">PDF</button>
                     <BR><br>
                     <div class="container" id="content2" #content2 #TABLE2 #table>
                         <h1>TIEMPO PROMEDIO ATENCION</h1>
@@ -162,7 +164,8 @@
 
                     <br>
                     <button type="button" class="btn btn-primary mx-2" (click)="ExportTOExcel()">EXCEL</button>
-                    <button type="button" class="btn btn-primary" (click)="generarPDF3()">PDF</button>
+                    <!-- <button type="button" class="btn btn-primary" (click)="generarPDF3()">PDF</button> -->
+                    <button type="button" class="btn btn-primary" (click)="generarPdf2('hola', 1)">PDF</button>
                     <br>
 
                     <div class="container" id="content3" #content #TABLE #table>
@@ -197,7 +200,7 @@
 
                     <br>
                     <button type="button" class="btn btn-primary mx-2" (click)="ExportTOExcel3()">EXCEL</button>
-                    <button type="button" class="btn btn-primary" (click)="generarPDF4()">PDF</button>
+                    <button type="button" class="btn btn-primary" (click)="generarPdf3('hola', 1)">PDF</button>
                     <br>
 
                     <div class="container" id="content4" #content3 #TABLE3 #table>
