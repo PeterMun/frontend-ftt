@@ -1,0 +1,177 @@
+<div class="card">
+    <h5 class="card-header">USUARIOS</h5>
+    <div class="card-body">
+        <form>
+            <ul class="nav nav-tabs" id="myTab" role="tablist">
+                <li class="nav-item">
+                    <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">TURNO POR FECHA</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Tiempo promedio de atencion</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Entradas y salidas al sistema</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="atencionusuario-tab" data-toggle="tab" href="#atencionusuario" role="tab" aria-controls="atencionusuario" aria-selected="false">Atencion al Usuario</a>
+                </li>
+            </ul>
+            <div class="tab-content" id="myTabContent">
+                <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                    <!-- <h1>TURNO POR FECHA</h1> -->
+                    <br>
+                    <button type="button" class="btn btn-info mx-2" (click)="ExportTOExcel1()">EXCEL</button>
+                    <!-- <button type="button" class="btn btn-primary" (click)="generarPDF1()">PDF</button> -->
+                    <button type="button" class="btn btn-info" (click)="generarPdf('hola', 1)">PDF</button>
+                    <br><br>
+                    <!--
+                    <input type="text" class="forms-control" placeholder="buscar.." [(ngModel)]="filterPost" name="filterPost"> -->
+
+                    <BR><br>
+                    <!-- <label *ngFor="let servicio of servicio"> Reporte realizado por: {{servicio.Nombre}} </label> -->
+                    <!--                     <div class="row">
+                        <div class="col">
+                            <div class="form-group">
+                                <input type="text" class="form-control" name="filterPost" placeholder="Search..." [(ngModel)]="filterPost">
+                            </div>
+                        </div>
+                    </div> -->
+                    <div class="container" id="content1" #content1 #TABLE1 #table>
+                        <h1>TURNO POR FECHA</h1>
+                        <br>
+
+                        <!-- <input type="date" id="start" name="trip-start" max="2022-12-31">
+                        <button (click)="getfiltrofecha()">fecha</button> -->
+                        <hr>
+                        <table class="table table-striped">
+                            <thead class="thead-dark">
+                                <tr>
+                                    <th scope="col">Usuario</th>
+                                    <th scope="col">Servicio</th>
+                                    <th scope="col">Fecha</th>
+                                    <th scope="col">Atendidos</th>
+                                    <th scope="col">No Atendidos</th>
+                                    <th scope="col">Total</th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let servicio1 of servicio1 ">
+                                    <td>{{servicio1.Usuario}}</td>
+                                    <td>{{servicio1.Servicio}}</td>
+                                    <td>{{servicio1.Fecha}}</td>
+                                    <td>{{servicio1.Atendidos}}</td>
+                                    <td>{{servicio1.No_Atendidos}}</td>
+                                    <td>{{servicio1.Total}}</td>
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                    <span></span>
+                    <br>
+                    <button type="button" class="btn btn-info mx-2" (click)="ExportTOExcel2()">EXCEL</button>
+                    <!-- <button type="button" class="btn btn-primary" (click)="generarPDF2()">PDF</button> -->
+                    <button type="button" class="btn btn-info" (click)="generarPdf1('hola', 1)">PDF</button>
+                    <BR><br>
+                    <div class="container" id="content2" #content2 #TABLE2 #table>
+                        <h1>TIEMPO PROMEDIO ATENCION</h1>
+                        <table class="table table-striped">
+                            <thead class="thead-dark">
+                                <tr>
+                                    <th scope="col">Usuario</th>
+                                    <th scope="col">Servicio</th>
+                                    <th scope="col">Promedio</th>
+                                    <th scope="col">Turnos</th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let servicio of servicio">
+                                    <td>{{servicio.Nombre}}</td>
+                                    <td>{{servicio.Servicio}}</td>
+                                    <td>{{servicio.Promedio}}</td>
+                                    <td>{{servicio.Turnos}}</td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
+
+                    <span></span>
+
+                    <br>
+                    <button type="button" class="btn btn-info mx-2" (click)="ExportTOExcel()">EXCEL</button>
+                    <!-- <button type="button" class="btn btn-primary" (click)="generarPDF3()">PDF</button> -->
+                    <button type="button" class="btn btn-info" (click)="generarPdf2('hola', 1)">PDF</button>
+                    <br>
+
+                    <div class="container" id="content3" #content #TABLE #table>
+                        <h1>ENTRADAS Y SALIDAS</h1>
+                        <hr>
+                        <table id="table" class="table table-striped">
+                            <thead class="thead-dark">
+                                <tr>
+                                    <th scope="col">Usuario</th>
+                                    <th scope="col">Hora Registrada</th>
+                                    <th scope="col">Razon</th>
+
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let servicio2 of servicio2">
+                                    <td>{{servicio2.Usuario}}</td>
+                                    <td>{{servicio2.fecha}}</td>
+                                    <td>{{servicio2.Razon}}</td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+                <div class="tab-pane fade" id="atencionusuario" role="tabpanel" aria-labelledby="atencionusuario-tab">
+
+
+                    <span></span>
+
+                    <br>
+                    <button type="button" class="btn btn-info mx-2" (click)="ExportTOExcel3()">EXCEL</button>
+                    <button type="button" class="btn btn-info" (click)="generarPdf3('hola', 1)">PDF</button>
+                    <br>
+
+                    <div class="container" id="content4" #content3 #TABLE3 #table>
+                        <h1>ATENCION USUARIO</h1>
+                        <hr>
+                        <table class="table table-striped">
+                            <thead class="thead-dark">
+                                <tr>
+                                    <th scope="col">Nombre</th>
+                                    <th scope="col">Servicio</th>
+                                    <th scope="col">Atendidos</th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let servicio3 of servicio3">
+                                    <td>{{servicio3.Nombre}}</td>
+                                    <td>{{servicio3.Servicio}}</td>
+                                    <td>{{servicio3.Atendidos}}</td>
+
+                                </tr>
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </form>
+
+
+    </div>
+</div>
