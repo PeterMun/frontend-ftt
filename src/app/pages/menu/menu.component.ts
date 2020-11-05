@@ -207,54 +207,42 @@ export class MenuComponent implements OnInit {
 
     graficopromedioatencion(){
 
-      this.serviceService.getturnos().subscribe((servicio: any) => {
-/*           console.log(servicio.turnos);
-        this.servicio = servicio.turnos; */
-
-        let total =  servicio.turnos.map(res => res.Turnos);
-        let promedios =  servicio.turnos.map(res => res.Promedio);
-        let usuarios =  servicio.turnos.map(res => res.Nombre);
-
-
-        this.chart = new Chart('canvas1', {
-
-          type: this.tipo= 'line',
-          data: {
-            labels: promedios,//eje x
+      let myChart = new Chart('canvas1', {
+        type: 'bar',
+        data: {
+            labels: ['MEDICINA FAMILIAR', 'OCUPACIONAL', 'QWEQERAXCXZ', 'PETER'],
             datasets: [{
-                label: 'Total atendidos',
-                data: total,//eje y
+                label: 'Servicios',
+                data: [12, 19, 3, 5, 2, 3],
                 backgroundColor: [
-                    'rgba(255, 99, 132, 5)',
-                    'rgba(54, 162, 235, 5)',
-                    'rgba(255, 206, 86, 5)',
+                    'rgba(255, 23, 72, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(255, 206, 86, 0.2)',
                     'rgba(75, 192, 192, 0.2)',
-                    'rgba(153, 102, 255, 0.2)',
-                    'rgba(255, 159, 64, 0.2)',
-                    ///////////////////////////
-                    'rgba(104, 210, 34, 0.2)',
-                    'rgba(34, 113, 210, 0.2)',
-                    'rgba(157, 34, 210, 0.2)',
-                    'rgba(210, 34, 75, 0.2)',
-                    'rgba(34, 207, 210, 0.2)',
-                    'rgba(34, 207, 154, 0.2)',
-                    'rgba(210, 63, 34, 0.2)',
-                    'rgba(155, 176, 17, 0.2)',
-                    'rgba(32, 37, 3, 0.2)',
-                    'rgba(5, 81, 53, 0.2)',
-                    'rgba(66, 96, 85, 0.2)',
-                    'rgba(17, 163, 212, 0.2)'
-                ]
+
+                ],
+                borderColor: [
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+
+                ],
+                borderWidth: 1
             }]
         },
+        options: {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true
+                    }
+                }]
+            }
+        }
+    });
 
-        });
-
-
-
-      });
-
-  }
+    }
 
 
   leergraficosevabar(){
