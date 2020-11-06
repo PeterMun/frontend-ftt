@@ -27,7 +27,7 @@
                     <!--
                     <input type="text" class="forms-control" placeholder="buscar.." [(ngModel)]="filterPost" name="filterPost"> -->
 
-                    <BR><br>
+
                     <!-- <label *ngFor="let servicio of servicio"> Reporte realizado por: {{servicio.Nombre}} </label> -->
                     <!--                     <div class="row">
                         <div class="col">
@@ -43,15 +43,15 @@
                         <!-- <input type="date" id="start" name="trip-start" max="2022-12-31">
                         <button (click)="getfiltrofecha()">fecha</button> -->
                         <hr>
-                        <table class="table table-striped">
-                            <thead class="thead-dark">
+                        <table class="tablesaw table-bordered table-hover table" data-tablesaw-mode="swipe" data-tablesaw-sortable data-tablesaw-sortable-switch data-tablesaw-minimap data-tablesaw-mode-switch>
+                            <thead>
                                 <tr>
-                                    <th scope="col">Usuario</th>
-                                    <th scope="col">Servicio</th>
-                                    <th scope="col">Fecha</th>
-                                    <th scope="col">Atendidos</th>
-                                    <th scope="col">No Atendidos</th>
-                                    <th scope="col">Total</th>
+                                    <th scope="col" data-tablesaw-sortable-col data-tablesaw-priority="persist">Usuario</th>
+                                    <th scope="col" data-tablesaw-sortable-col data-tablesaw-sortable-default-col data-tablesaw-priority="3">Servicio</th>
+                                    <th scope="col" data-tablesaw-sortable-col data-tablesaw-priority="2">Fecha</th>
+                                    <th scope="col" data-tablesaw-sortable-col data-tablesaw-priority="1">Atendidos</th>
+                                    <th scope="col" data-tablesaw-sortable-col data-tablesaw-priority="4">No Atendidos</th>
+                                    <th scope="col" data-tablesaw-sortable-col data-tablesaw-priority="5">Total</th>
 
                                 </tr>
                             </thead>
