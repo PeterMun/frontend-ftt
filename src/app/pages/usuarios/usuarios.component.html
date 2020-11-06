@@ -24,50 +24,35 @@
                     <!-- <button type="button" class="btn btn-primary" (click)="generarPDF1()">PDF</button> -->
                     <button type="button" class="btn btn-info" (click)="generarPdf('hola', 1)">PDF</button>
                     <br><br>
-                    <!--
-                    <input type="text" class="forms-control" placeholder="buscar.." [(ngModel)]="filterPost" name="filterPost"> -->
+                    <!-- -->
+                    <table class="tablesaw table-striped table-hover table-bordered table" data-tablesaw-mode="columntoggle">
+                        <thead>
+                            <tr>
+                                <th scope="col" data-tablesaw-sortable-col data-tablesaw-priority="persist">Usuario</th>
+                                <th scope="col" data-tablesaw-sortable-col data-tablesaw-sortable-default-col data-tablesaw-priority="3">Servicio</th>
+                                <th scope="col" data-tablesaw-sortable-col data-tablesaw-priority="2">Fecha</th>
+                                <th scope="col" data-tablesaw-sortable-col data-tablesaw-priority="1">
+                                    <abbr>Atendidos</abbr>
+                                </th>
+                                <th scope="col" data-tablesaw-sortable-col data-tablesaw-priority="4">No Atendidos</th>
+                                <th scope="col" data-tablesaw-sortable-col data-tablesaw-priority="5">Total</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let servicio1 of servicio1 ">
+                                <td class="title"><a class="link" href="javascript:void(0)">{{servicio1.Usuario}}</a></td>
+                                <td class="title"><a class="link" href="javascript:void(0)"> {{servicio1.Servicio}} </a> </td>
+                                <td class="title"><a class="link" href="javascript:void(0)"> {{servicio1.Fecha}} </a> </td>
+                                <td class="title"><a class="link" href="javascript:void(0)"> {{servicio1.Atendidos}} </a> </td>
+                                <td class="title"><a class="link" href="javascript:void(0)"> {{servicio1.No_Atendidos}} </a> </td>
+                                <td class="title"><a class="link" href="javascript:void(0)"> {{servicio1.Total}} </a> </td>
+                            </tr>
+
+                        </tbody>
+                    </table>
 
 
-                    <!-- <label *ngFor="let servicio of servicio"> Reporte realizado por: {{servicio.Nombre}} </label> -->
-                    <!--                     <div class="row">
-                        <div class="col">
-                            <div class="form-group">
-                                <input type="text" class="form-control" name="filterPost" placeholder="Search..." [(ngModel)]="filterPost">
-                            </div>
-                        </div>
-                    </div> -->
-                    <div class="container" id="content1" #content1 #TABLE1 #table>
-                        <h1>TURNO POR FECHA</h1>
-                        <br>
 
-                        <!-- <input type="date" id="start" name="trip-start" max="2022-12-31">
-                        <button (click)="getfiltrofecha()">fecha</button> -->
-                        <hr>
-                        <table class="tablesaw table-bordered table-hover table" data-tablesaw-mode="swipe" data-tablesaw-sortable data-tablesaw-sortable-switch data-tablesaw-minimap data-tablesaw-mode-switch>
-                            <thead>
-                                <tr>
-                                    <th scope="col" data-tablesaw-sortable-col data-tablesaw-priority="persist">Usuario</th>
-                                    <th scope="col" data-tablesaw-sortable-col data-tablesaw-sortable-default-col data-tablesaw-priority="3">Servicio</th>
-                                    <th scope="col" data-tablesaw-sortable-col data-tablesaw-priority="2">Fecha</th>
-                                    <th scope="col" data-tablesaw-sortable-col data-tablesaw-priority="1">Atendidos</th>
-                                    <th scope="col" data-tablesaw-sortable-col data-tablesaw-priority="4">No Atendidos</th>
-                                    <th scope="col" data-tablesaw-sortable-col data-tablesaw-priority="5">Total</th>
-
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr *ngFor="let servicio1 of servicio1 ">
-                                    <td>{{servicio1.Usuario}}</td>
-                                    <td>{{servicio1.Servicio}}</td>
-                                    <td>{{servicio1.Fecha}}</td>
-                                    <td>{{servicio1.Atendidos}}</td>
-                                    <td>{{servicio1.No_Atendidos}}</td>
-                                    <td>{{servicio1.Total}}</td>
-
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
                 </div>
                 <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
                     <span></span>
