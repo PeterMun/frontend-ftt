@@ -9,6 +9,7 @@ import { OcupacionComponent } from './ocupacion/ocupacion.component';
 import { DistestadoturnosComponent } from './distestadoturnos/distestadoturnos.component';
 import { IngresoclientesComponent } from './ingresoclientes/ingresoclientes.component';
 import { AtendidosmultiplesComponent } from './atendidosmultiples/atendidosmultiples.component';
+import { AuthGuard } from '../guards/auth.guard';
 
 
 const routes: Routes = [
@@ -16,6 +17,7 @@ const routes: Routes = [
   {
     path:'menu',
   component:PagesComponent,
+  canActivate: [ AuthGuard ],
   children: [
 
     {path:'', component:MenuComponent},
