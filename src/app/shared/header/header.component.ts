@@ -3,6 +3,8 @@ import { ServiceService } from '../../services/service.service';
 import { AuthenticationService } from '../../services/authentication.service';
 import { Router } from '@angular/router';
 
+declare function customSidebar();
+
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
@@ -17,6 +19,7 @@ export class HeaderComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    customSidebar();
   }
 
   salir(){
