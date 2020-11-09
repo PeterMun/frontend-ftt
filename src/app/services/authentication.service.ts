@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import  { Observable } from 'rxjs';
 import { usuario } from '../models/usuario';
 
-import { map } from 'rxjs/operators'
+import { map, catchError, tap } from 'rxjs/operators';
 
 
 @Injectable({
@@ -14,10 +14,13 @@ import { map } from 'rxjs/operators'
 export class AuthenticationService {
 
   userToken: String;
+  public user: usuario;
+  username: '';
+  password: '';
 
 
-  private URL = "https://backendftt.herokuapp.com";
-  //private URL = "http://127.0.0.1:3000";
+  //private URL = "https://backendftt.herokuapp.com";
+  private URL = "http://127.0.0.1:3000";
 
 
 
@@ -26,6 +29,7 @@ export class AuthenticationService {
     private router: Router) {
 
       this.leerToken();
+      this.obtenerUsuario();
 
     }
 
@@ -45,14 +49,18 @@ export class AuthenticationService {
 
   login(username:any,password:any){
 
-    const authData = {
-      ...usuario
-    };
-
     return this.http.post<any>(`${this.URL}/login/${username}/${password}`, {})
       .pipe(
          map( resp => {
+          console.log(resp);
+          console.log(resp.usuario);
+          console.log(resp.username);
+          this.user = resp.usuario;
+          //this.servicio1 = servicio1.turnos
            this.guardaToken( resp['token'] );
+
+
+
            return resp;
          } )
       );
@@ -80,16 +88,47 @@ export class AuthenticationService {
 
   }
 
-
-
-
-
-
   estaAutenticado(): boolean{
 
     return this.userToken.length > 2;
 
   }
+
+
+  usuarioauth(username:any,password:any){
+
+    return this.http.post<any>(`${this.URL}/login/${username}/${password}`, {})
+      .pipe(
+         map( resp => {
+          console.log(resp);
+          console.log(resp.usuario);
+          console.log(resp.username);
+          this.user = resp.usuario;
+          //this.servicio1 = servicio1.turnos
+           this.guardaToken( resp['token'] );
+
+
+
+           return resp;
+         } )
+      );
+
+
+  }
+
+
+  obtenerUsuario(){
+    let token= localStorage.getItem('token');
+    console.log(token);
+  }
+
+
+
+
+
+
+
+
 
 
 }

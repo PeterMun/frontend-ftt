@@ -15,7 +15,7 @@ import Swal from 'sweetalert2';
 })
 export class LoginComponent implements OnInit {
 
-  usuario: usuario = new usuario();
+  //usuario: usuario = new usuario();
 
   usua_login: "";
   usua_password: "";
@@ -33,21 +33,21 @@ export class LoginComponent implements OnInit {
 
 
 //     //sacar info con el jwt y guardar en el localstorage; mandar todas las peticiones
-      login(username, password) {
-        username = this.usua_login;
-        password = this.usua_password;
+      // login(username, password) {
+      //   username = this.usua_login;
+      //   password = this.usua_password;
 
-        this.authenticationService.loginUsuario(username, password).subscribe((a) => {
-          console.log(a.token);
-          localStorage.setItem("token", a.token);
-          this.router.navigateByUrl('/menu');
-
-
+      //   this.authenticationService.loginUsuario(username, password).subscribe((a) => {
+      //     console.log(a.token);
+      //     localStorage.setItem("token", a.token);
+      //     this.router.navigateByUrl('/menu');
 
 
-        });
 
-      }
+
+      //   });
+
+      // }
 
       login1(form: NgForm, username, password){
         username = this.usua_login;
@@ -68,7 +68,7 @@ export class LoginComponent implements OnInit {
 
         this.authenticationService.loginUsuario(username, password)
         .subscribe(resp => {
-          console.log(resp.token);
+          //console.log(resp.token);
           localStorage.setItem("token", resp.token);
           this.router.navigateByUrl('/menu');
           Swal.close();
@@ -111,7 +111,7 @@ export class LoginComponent implements OnInit {
             Swal.close();
             this.router.navigateByUrl('/menu');
           }, (err) => {
-            console.log(err.error.error.message);
+            console.log(err.message);
             Swal.fire({
               title: 'Error!',
               text: 'Usuario o password incorrecto',

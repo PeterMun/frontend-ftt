@@ -8,7 +8,8 @@
         <nav class="sidebar-nav">
             <ul id="sidebarnav">
                 <li class="user-profile">
-                    <a class="has-arrow waves-effect waves-dark" aria-expanded="false"><img src="./assets/images/users/user.jpg" alt="user" /><span class="hide-menu">Postmaster </span></a>
+                    <a class="has-arrow waves-effect waves-dark" aria-expanded="false"><img src="./assets/images/users/user.jpg" alt="user" />
+                        <span class="hide-menu" *ngFor="let usuario of usuario ">{{ usuario.usua_logim }} </span></a>
                 </li>
                 <li class="nav-devider"></li>
                 <li class="nav-small-cap">REPORTES </li>

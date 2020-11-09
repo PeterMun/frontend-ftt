@@ -87,6 +87,7 @@ export class UsuariosComponent implements OnInit {
               ) { }
 
   ngOnInit(): void {
+
     this.leerturnosfecha();
     this.leerturnos();
     this.leerentradassalidassistema();
