@@ -63,8 +63,9 @@
                     <!-- <button type="button" class="btn btn-primary" (click)="generarPDF2()">PDF</button> -->
                     <button type="button" class="btn btn-info" (click)="generarPdf1('hola', 1)">PDF</button>
                     <BR><br>
-                    <div class="container" id="content2" #content2 #TABLE2 #table>
-                        <h1>TIEMPO PROMEDIO ATENCION</h1>
+
+                    <h1>TIEMPO PROMEDIO ATENCION</h1>
+                    <div class="table-responsive">
                         <table class="table table-striped">
                             <thead class="thead-dark">
                                 <tr>
@@ -86,6 +87,7 @@
                             </tbody>
                         </table>
                     </div>
+
                 </div>
                 <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
 
@@ -97,9 +99,10 @@
                     <button type="button" class="btn btn-info" (click)="generarPdf2('hola', 1)">PDF</button>
                     <br>
 
-                    <div class="container" id="content3" #content #TABLE #table>
-                        <h1>ENTRADAS Y SALIDAS</h1>
-                        <hr>
+
+                    <h1>ENTRADAS Y SALIDAS</h1>
+                    <hr>
+                    <div class="table-responsive">
                         <table id="table" class="table table-striped">
                             <thead class="thead-dark">
                                 <tr>
@@ -121,6 +124,7 @@
                         </table>
                     </div>
 
+
                 </div>
                 <div class="tab-pane fade" id="atencionusuario" role="tabpanel" aria-labelledby="atencionusuario-tab">
 
@@ -132,9 +136,10 @@
                     <button type="button" class="btn btn-info" (click)="generarPdf3('hola', 1)">PDF</button>
                     <br>
 
-                    <div class="container" id="content4" #content3 #TABLE3 #table>
-                        <h1>ATENCION USUARIO</h1>
-                        <hr>
+
+                    <h1>ATENCION USUARIO</h1>
+                    <hr>
+                    <div class="table-responsive">
                         <table class="table table-striped">
                             <thead class="thead-dark">
                                 <tr>
@@ -156,6 +161,7 @@
                         </table>
                     </div>
                 </div>
+
             </div>
         </form>
 

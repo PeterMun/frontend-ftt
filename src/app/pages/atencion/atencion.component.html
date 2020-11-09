@@ -35,8 +35,9 @@
                     <!-- <label *ngFor="let servicio of servicio"> Reporte realizado por: {{servicio.Nombre}} </label> -->
 
                     <br>
-                    <div class="container" id="content" #content #TABLE #table>
-                        <h1>TIEMPO COMPLETO</h1>
+
+                    <h1>TIEMPO COMPLETO</h1>
+                    <div class="table-responsive">
                         <table class="table table-striped">
                             <thead class="thead-dark">
                                 <tr>
@@ -60,8 +61,8 @@
                                 </tr>
                             </tbody>
                         </table>
-
                     </div>
+
                 </div>
                 <div class="tab-pane fade" id="promatencion" role="tabpanel" aria-labelledby="promatencion-tab">
 
@@ -72,9 +73,10 @@
                     <button type="button" class="btn btn-info" (click)="generarPdf1('hola', 1)">PDF</button>
                     <br><br>
                     <!-- <label *ngFor="let servicio of servicio"> Reporte realizado por: {{servicio.Nombre}} </label> -->
-                    <div class="container" id="content1" #content1 #TABLE1 #table1>
-                        <h1>PROMEDIO ATENCION</h1>
-                        <br>
+
+                    <h1>PROMEDIO ATENCION</h1>
+                    <br>
+                    <div class="table-responsive">
                         <table class="table table-striped">
                             <thead class="thead-dark">
                                 <tr>
@@ -109,8 +111,9 @@
 
                     <br>
                     <!-- <label *ngFor="let servicio of servicio"> Reporte realizado por: {{servicio.Nombre}} </label> -->
-                    <div class="container" id="content2" #content2 #TABLE2 #table2>
-                        <h1>MAXIMOS ATENCION</h1>
+
+                    <h1>MAXIMOS ATENCION</h1>
+                    <div class="table-responsive">
                         <table class="table table-striped">
                             <thead class="thead-dark">
                                 <tr>
@@ -132,6 +135,7 @@
                             </tbody>
                         </table>
                     </div>
+
                     <!-- <h1>falta grafico</h1> -->
                 </div>
                 <div class="tab-pane fade" id="atenservicio" role="tabpanel" aria-labelledby="atenservicio-tab">
@@ -144,8 +148,9 @@
                     <!-- <label *ngFor="let servicio of servicio"> Reporte realizado por: {{servicio.Nombre}} </label> -->
 
                     <br>
-                    <div class="container" id="content3" #content3 #TABLE3 #table3>
-                        <h1>ATENCION SERVICIO</h1>
+
+                    <h1>ATENCION SERVICIO</h1>
+                    <div class="table-responsive">
                         <table class="table table-striped">
                             <thead class="thead-dark">
                                 <tr>
