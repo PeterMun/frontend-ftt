@@ -52,16 +52,8 @@ export class AuthenticationService {
     return this.http.post<any>(`${this.URL}/login/${username}/${password}`, {})
       .pipe(
          map( resp => {
-          console.log(resp);
-          console.log(resp.usuario);
-          console.log(resp.username);
-          this.user = resp.usuario;
-          //this.servicio1 = servicio1.turnos
            this.guardaToken( resp['token'] );
-
-
-
-           return resp;
+           //return resp;
          } )
       );
 
@@ -95,31 +87,12 @@ export class AuthenticationService {
   }
 
 
-  usuarioauth(username:any,password:any){
 
-    return this.http.post<any>(`${this.URL}/login/${username}/${password}`, {})
-      .pipe(
-         map( resp => {
-          console.log(resp);
-          console.log(resp.usuario);
-          console.log(resp.username);
-          this.user = resp.usuario;
-          //this.servicio1 = servicio1.turnos
-           this.guardaToken( resp['token'] );
-
-
-
-           return resp;
-         } )
-      );
-
-
-  }
 
 
   obtenerUsuario(){
     let token= localStorage.getItem('token');
-    console.log(token);
+    //console.log(token);
   }
 
 

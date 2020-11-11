@@ -7,6 +7,7 @@ File: js
 
 const customSidebar = () => {
 
+
     // ==============================================================
     // This is for the top header part and sidebar part
     // ==============================================================
@@ -34,32 +35,39 @@ const customSidebar = () => {
     $(window).on("resize", set);
 
     // ==============================================================
-    // Theme options
+    // Theme options,
     // ==============================================================
     $(".sidebartoggler").on('click', function() {
         if ($("body").hasClass("mini-sidebar")) {
             $("body").trigger("resize");
             $("body").removeClass("mini-sidebar");
             $('.navbar-brand span').show();
-
         } else {
             $("body").trigger("resize");
             $("body").addClass("mini-sidebar");
             $('.navbar-brand span').hide();
 
+
         }
     });
+    //////////////////////////
+
+    //////////////////////////
 
     // this is for close icon when navigation open in mobile view
     $(".nav-toggler").click(function() {
         $("body").toggleClass("show-sidebar");
         $(".nav-toggler i").toggleClass("ti-menu");
-        $(".nav-toggler i").addClass("ti-close");
+        $(".nav-toggler i").addClass("ti-menu");
+
     });
+
+
 
     $(".search-box a, .search-box .app-search .srh-btn").on('click', function() {
         $(".app-search").toggle(200);
     });
+
     // ==============================================================
     // Right sidebar options
     // ==============================================================
