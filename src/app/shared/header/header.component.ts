@@ -41,15 +41,12 @@ export class HeaderComponent implements OnInit {
 
   }
 
-  mostrarMenu(){
-    console.log("mostrar:", true)
-    this.menuMostrarOcultar.emit(true);
+  w3_open() {
+    document.getElementById("mySidebar").style.display = "block";
+    //document.getElementById("myOverlay").style.display = "block";
   }
 
-  ocultarMenu(){
-    console.log("mostrar:", false)
-    this.menuMostrarOcultar.emit(false);
-  }
+
 
 
 /*   toggleMenu($event) {

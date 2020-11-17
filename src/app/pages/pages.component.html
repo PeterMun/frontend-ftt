@@ -1,13 +1,13 @@
 <div id="main-wrapper">
 
-    <app-header (menuMostrarOcultar)="mostrarMenu=$event"></app-header>
-    <app-sidebar *ngIf="mostrarMenu"></app-sidebar>
+    <app-header></app-header>
+    <app-sidebar></app-sidebar>
 
 
     <div class="page-wrapper">
 
 
-        <div class="container-fluid">
+        <div class="container-fluid" (click)="w3_close()">
 
 
             <!-- sistema de rutas -->

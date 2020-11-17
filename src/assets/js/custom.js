@@ -46,9 +46,8 @@ const customSidebar = () => {
             $("body").trigger("resize");
             $("body").addClass("mini-sidebar");
             $('.navbar-brand span').hide();
-
-
         }
+
     });
     //////////////////////////
 
