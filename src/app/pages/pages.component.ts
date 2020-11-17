@@ -11,6 +11,7 @@ declare function customInitFunctions();
 export class PagesComponent implements OnInit {
 
   mostrarMenu:boolean = true;
+  mySidebar: true;
 
   constructor() { }
 
