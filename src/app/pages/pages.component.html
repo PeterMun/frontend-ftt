@@ -1,7 +1,7 @@
 <div id="main-wrapper">
 
-    <app-header></app-header>
-    <app-sidebar></app-sidebar>
+    <app-header (menuMostrarOcultar)="mostrarMenu=$event"></app-header>
+    <app-sidebar *ngIf="mostrarMenu"></app-sidebar>
 
 
     <div class="page-wrapper">
@@ -9,8 +9,10 @@
 
         <div class="container-fluid">
 
+
             <!-- sistema de rutas -->
-            <router-outlet></router-outlet>
+            <router-outlet>
+            </router-outlet>
 
 
             <!-- ============================================================== -->

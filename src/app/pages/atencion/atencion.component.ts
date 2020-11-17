@@ -123,7 +123,7 @@ export class AtencionComponent implements OnInit {
   }
   leergrafico(){
     this.serviceService.getatenciongrafico().subscribe((serviciograf: any) => {
-      console.log(serviciograf.turnos);
+      //console.log(serviciograf.turnos);
       this.serviciograf = serviciograf.turnos;
 
     });

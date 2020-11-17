@@ -15,8 +15,8 @@ import { evaluacion } from '../models/evaluacion';
 })
 export class ServiceService {
 
-  //private URL = "http://127.0.0.1:3000";
-  private URL = "https://backendftt.herokuapp.com";
+  private URL = "http://127.0.0.1:3000";
+  // private URL = "https://backendftt.herokuapp.com";
 
 
   constructor(private http: HttpClient,
@@ -165,19 +165,23 @@ export class ServiceService {
   gettotaltickets(fecha):Observable<servicio[]> {
     return this.http.get<servicio[]>(this.URL + "/totaltickets/"+ fecha);
   }
-  gettotalatendidos():Observable<servicio[]> {
-    return this.http.get<servicio[]>(this.URL + "/totalatendidos");
+  gettotalatendidos(fecha):Observable<servicio[]> {
+    return this.http.get<servicio[]>(this.URL + "/totalatendidos/"+ fecha);
   }
-  gettotalsinatender():Observable<servicio[]> {
-    return this.http.get<servicio[]>(this.URL + "/totalsinatender");
+  gettotalsinatender(fecha):Observable<servicio[]> {
+    return this.http.get<servicio[]>(this.URL + "/totalsinatender/"+ fecha);
   }
-  getpromedioatencion():Observable<servicio[]> {
-    return this.http.get<servicio[]>(this.URL + "/promedioatencion");
+  getpromedioatencion(fecha):Observable<servicio[]> {
+    return this.http.get<servicio[]>(this.URL + "/promedioatencion/"+ fecha);
   }
 
   /////////////////////////////
   getgrafeva():Observable<servicio[]> {
     return this.http.get<servicio[]>(this.URL + "/evagraf");
+  }
+
+  getserviciossolicitados():Observable<servicio[]> {
+    return this.http.get<servicio[]>(this.URL + "/servsoli");
   }
 
 

@@ -68,6 +68,15 @@ export class MenuComponent implements OnInit {
     public chartEmail;
     public chartHours;
 
+    progreso: number =  27.88;
+    excelente: number =  0;
+
+    servicio5: any;
+    servicio6: any;
+
+
+
+
 
 
 
@@ -100,6 +109,9 @@ export class MenuComponent implements OnInit {
   this.graficopromedioatencion();
   this.leergraficosevabar();
   ///
+  this.getevaluacionsucursal();
+  this.getserviciosmasatendidos();
+
 
   ///
   Utils.getImageDataUrlFromLocalPath1('assets/logotickets.png').then(
@@ -158,7 +170,7 @@ export class MenuComponent implements OnInit {
 
       this.serviceService.gettotaltickets(this.date).subscribe((servgraf1: any) => {
         //console.log(servgraf1.turnos);
-        console.log(this.date);
+        //console.log(this.date);
         this.servgraf1 = servgraf1.turnos;
 
       });
@@ -166,7 +178,7 @@ export class MenuComponent implements OnInit {
     }
 
     gettotalatendidos(){
-      this.serviceService.gettotalatendidos().subscribe((servgraf2: any) => {
+      this.serviceService.gettotalatendidos(this.date).subscribe((servgraf2: any) => {
         //console.log(servgraf2.turnos);
         this.servgraf2 = servgraf2.turnos;
 
@@ -176,7 +188,7 @@ export class MenuComponent implements OnInit {
 
 
     getsinatender(){
-      this.serviceService.gettotalsinatender().subscribe((servgraf3: any) => {
+      this.serviceService.gettotalsinatender(this.date).subscribe((servgraf3: any) => {
         //console.log(servgraf3.turnos);
         this.servgraf3 = servgraf3.turnos;
 
@@ -186,7 +198,7 @@ export class MenuComponent implements OnInit {
 
 
     getpromedioatencion(){
-      this.serviceService.getpromedioatencion().subscribe((servgraf4: any) => {
+      this.serviceService.getpromedioatencion(this.date).subscribe((servgraf4: any) => {
         //console.log(servgraf4.turnos);
         this.servgraf4 = servgraf4.turnos;
 
@@ -199,6 +211,9 @@ export class MenuComponent implements OnInit {
       this.serviceService.getgrafeva().subscribe((grafeva: any) => {
         //console.log(grafeva.turnos);
         this.grafeva = grafeva.turnos;
+        //let exc = grafeva.turnos.map(res  => res.Excelente)
+        //console.log(exc);
+
       });
 
     }
@@ -208,7 +223,7 @@ export class MenuComponent implements OnInit {
     graficopromedioatencion(){
 
       let myChart = new Chart('canvas1', {
-        type: 'bar',
+        type: 'horizontalbar',
         data: {
             labels: ['MEDICINA FAMILIAR', 'OCUPACIONAL', 'QWEQERAXCXZ', 'PETER'],
             datasets: [{
@@ -278,6 +293,35 @@ export class MenuComponent implements OnInit {
 
     });
   }
+
+  /////////////////////////////////////
+  get getProcentaje(){
+    return `${ this.progreso }%`;
+  }
+
+  getevaluacionsucursal(){
+    this.serviceService.getgraficobarras().subscribe((servicio5: any) => {
+      //console.log(servicio5.turnos);
+      this.servicio5 = servicio5.turnos;
+
+      let total =  servicio5.turnos.map(res => res.total);
+      let evaluaciones = servicio5.turnos.map(res => res.evaluacion);
+      //console.log(total);
+      //console.log(evaluaciones);
+    });
+  }
+
+  getserviciosmasatendidos(){
+    this.serviceService.getserviciossolicitados().subscribe((servicio6: any) => {
+      console.log(servicio6.turnos);
+      this.servicio6 = servicio6.turnos;
+
+    });
+  }
+
+
+
+  /////////////////////////////////////
 
   /////////////////PDFMAKE
 

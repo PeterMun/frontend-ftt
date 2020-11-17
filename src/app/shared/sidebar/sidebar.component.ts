@@ -1,4 +1,4 @@
-import { Component, HostListener, OnInit,ElementRef } from '@angular/core';
+import { Component, HostListener, OnInit,ElementRef, EventEmitter, Output } from '@angular/core';
 import { usuario } from '../../models/usuario';
 import { AuthenticationService } from '../../services/authentication.service';
 import { Router } from '@angular/router';
@@ -9,9 +9,9 @@ import { ServiceService } from '../../services/service.service';
   selector: 'app-sidebar',
   templateUrl: './sidebar.component.html',
   styleUrls: ['./sidebar.component.scss'],
-  host: {
-    "(window:click)": "onClick()"
-  }
+  // host: {
+  //   "(window:click)": "onClick()"
+  // }
 })
 export class SidebarComponent implements OnInit {
 
@@ -33,6 +33,7 @@ export class SidebarComponent implements OnInit {
     private eRef: ElementRef
   ) {
     this.text = 'no clicks yet';
+
    }
 
   ngOnInit(): void {
@@ -55,14 +56,16 @@ export class SidebarComponent implements OnInit {
 
 
   }
-  toggleMenu($event) {
+
+
+/*   toggleMenu($event) {
     $event.stopPropagation();
     this.isMenuOpen = !this.isMenuOpen;
   }
 
   onClick() {
     this.isMenuOpen = false;
-  }
+  } */
 
 
   // @HostListener('document:click', ['$event'])

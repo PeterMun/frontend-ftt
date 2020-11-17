@@ -1,4 +1,4 @@
-import { Component, OnInit,ViewChild,ElementRef  } from '@angular/core';
+import { Component, OnInit,ViewChild,ElementRef,EventEmitter, Output  } from '@angular/core';
 import { ServiceService } from '../../services/service.service';
 import { AuthenticationService } from '../../services/authentication.service';
 import { Router } from '@angular/router';
@@ -76,7 +76,7 @@ export class UsuariosComponent implements OnInit {
 
       urlImagen: string;
 
-
+      @Output() menuMostrarOcultar: EventEmitter<any> = new EventEmitter();
 
 
 
@@ -107,6 +107,9 @@ export class UsuariosComponent implements OnInit {
     this.router.navigateByUrl('/');
 
   }
+
+
+
 
   leerturnosfecha(){
     this.serviceService.getturnosfecha().subscribe((servicio1: any) => {

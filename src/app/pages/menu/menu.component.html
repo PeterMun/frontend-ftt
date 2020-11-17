@@ -25,7 +25,7 @@
                     <div class="align-self-center">
                         <h6 class="text-muted m-t-10 m-b-0"> Tickets Atendidos </h6>
                         <h6 class="text-muted m-t-10 m-b-0" id="fecha1">{{date}}</h6>
-                        <h2 class="m-t-0"> 0 </h2>
+                        <h2 class="m-t-0" *ngFor="let servgraf2 of servgraf2 "> {{ servgraf2.atendidostotales }} </h2>
                         <a routerLink="atencion" class="card-link">Mas Info <i class="fa fa-arrow-circle-right"></i></a>
                     </div>
                 </div>
@@ -40,7 +40,7 @@
                     <div class="align-self-center">
                         <h6 class="text-muted m-t-10 m-b-0"> Tickets No Atendidos</h6>
                         <h6 class="text-muted m-t-10 m-b-0" id="fecha1">{{date}}</h6>
-                        <h2 class="m-t-0"> 0 </h2>
+                        <h2 class="m-t-0" *ngFor="let servgraf3 of servgraf3"> {{ servgraf3.noatendidos }} </h2>
                         <a routerLink="distestadoturnos" class="card-link">Mas Info <i class="fa fa-arrow-circle-right"></i></a>
 
                     </div>
@@ -57,7 +57,7 @@
                     <div class="align-self-center">
                         <h6 class="text-muted m-t-10 m-b-0">Promedio Atención</h6>
                         <h6 class="text-muted m-t-10 m-b-0" id="fecha1">{{date}}</h6>
-                        <h2 class="m-t-0"> 0:00:00 </h2>
+                        <h2 class="m-t-0" *ngFor="let servgraf4 of servgraf4"> {{ servgraf4.PromedioAtencion }} </h2>
                         <a routerLink="usuarios" class="card-link">Mas Info <i class="fa fa-arrow-circle-right"></i></a>
                     </div>
                 </div>
@@ -83,30 +83,17 @@
 
                 </div>
                 <br>
-                <div id="sales-overview2" class="p-relative" style="height:360px;">
-                    <div id="ct-sales3-chart" class="p-relative" style="height:360px;">
-                        <h5 class="m-t-30">PETER <span class="pull-right">15%</span></h5>
+                <div id="sales-overview2" class="p-relative" *ngFor="let servicio6 of servicio6">
+                    <div id="ct-sales3-chart" class="p-relative">
+                        <h5 class="m-t-30">{{servicio6.Servicio}}<span class="pull-right">{{servicio6.Total}}</span></h5>
                         <div class="progress ">
-                            <div class="progress-bar bg-danger wow animated progress-animated" style="width: 15%; height:15px;" role="progressbar"> <span class="sr-only">60% Complete</span> </div>
-                        </div>
-                        <br>
+                            <!-- <div class="progress-bar bg-danger wow animated progress-animated" style=" height:15px;" [style.width]="getProcentaje" role="progressbar">
+                            </div> -->
+                            <div class="progress-bar bg-danger" role="progressbar" style="height: 15px; padding-left: 5px;" [ngStyle]="{ 'width': servicio6.Total+'%' }" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100">
+                                <!-- Prueba {{grafeva.Excelente}} -->
 
-                        <h5 class="m-t-30">OCUPACIONAL<span class="pull-right">50%</span></h5>
-                        <div class="progress">
-                            <div class="progress-bar bg-info wow animated progress-animated" style="width: 50%; height:15px;" role="progressbar"> <span class="sr-only">60% Complete</span> </div>
-                        </div>
-                        <br>
+                            </div>
 
-                        <h5 class="m-t-30">QWEQERAXCXZ<span class="pull-right">25%</span></h5>
-                        <div class="progress">
-                            <div class="progress-bar bg-warning wow animated progress-animated" style="width: 25%; height:15px;" role="progressbar"> <span class="sr-only">60% Complete</span> </div>
-                        </div>
-
-                        <br>
-
-                        <h5 class="m-t-30">MEDICINA FAMILIAR<span class="pull-right">75%</span></h5>
-                        <div class="progress">
-                            <div class="progress-bar bg-success wow animated progress-animated" style="width: 75%; height:15px;" role="progressbar"> <span class="sr-only">60% Complete</span> </div>
                         </div>
 
 
@@ -125,13 +112,17 @@
                         <h3 class="card-title m-b-5"><span class="lstick"></span> Promedio Evaluacion Agencia </h3>
                     </div>
 
-
-
-
-
                 </div>
                 <br>
 
+                <div id="sales-overview2" class="p-relative" *ngFor="let servicio5 of servicio5">
+                    <h5 class="m-t-30"> {{servicio5.evaluacion}} <span class="pull-right">{{servicio5.total}}</span></h5>
+                    <div class="progress ">
+                        <div class="progress-bar bg-info" role="progressbar" style="height: 15px; padding-left: 5px;" [ngStyle]="{ 'width': servicio5.total+'%' }" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100">
+                        </div>
+                    </div>
+                </div>
+                <!--
                 <h5 class="m-t-30"> Excelente <span class="pull-right">71</span></h5>
                 <div class="progress">
                     <div class="progress-bar bg-success wow animated progress-animated" style="width: 71%; height:15px;" role="progressbar"> <span class="sr-only">60% Complete</span> </div>
@@ -159,7 +150,7 @@
                 <h5 class="m-t-30"> Malo <span class="pull-right">22</span></h5>
                 <div class="progress">
                     <div class="progress-bar bg-danger wow animated progress-animated" style="width: 22%; height:15px;" role="progressbar"> <span class="sr-only">60% Complete</span> </div>
-                </div>
+                </div> -->
 
 
 
