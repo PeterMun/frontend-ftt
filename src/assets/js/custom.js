@@ -37,18 +37,18 @@ const customSidebar = () => {
     // ==============================================================
     // Theme options,
     // ==============================================================
-    $(".sidebartoggler").on('click', function() {
-        if ($("body").hasClass("mini-sidebar")) {
-            $("body").trigger("resize");
-            $("body").removeClass("mini-sidebar");
-            $('.navbar-brand span').show();
-        } else {
-            $("body").trigger("resize");
-            $("body").addClass("mini-sidebar");
-            $('.navbar-brand span').hide();
-        }
+    // $(".sidebartoggler").on('click', function() {
+    //     if ($("body").hasClass("mini-sidebar")) {
+    //         $("body").trigger("resize");
+    //         $("body").removeClass("mini-sidebar");
+    //         $('.navbar-brand span').show();
+    //     } else {
+    //         $("body").trigger("resize");
+    //         $("body").addClass("mini-sidebar");
+    //         $('.navbar-brand span').hide();
+    //     }
 
-    });
+    // });
     //////////////////////////
 
     //////////////////////////

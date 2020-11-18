@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { ClassGetter } from '@angular/compiler/src/output/output_ast';
+import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 
 declare function customInitFunctions();
 
@@ -10,8 +11,10 @@ declare function customInitFunctions();
 })
 export class PagesComponent implements OnInit {
 
+
+
   mostrarMenu:boolean = true;
-  mySidebar: true;
+  //mySidebar:boolean= true;
 
   constructor() { }
 
@@ -19,15 +22,37 @@ export class PagesComponent implements OnInit {
     customInitFunctions();
   }
 
+
+
+
   w3_close() {
-    document.getElementById("mySidebar").style.display = "none";
-    //document.getElementById("myOverlay").style.display = "none";
-    if(this.mySidebar){
-      document.getElementById("mySidebar").style.display = "block";
-      console.log('true');
+
+    //document.getElementById("menu-lateral").style.display = "none";
+
+    if(screen.width < 1024){
+      console.log('pequenia');
+      document.getElementById("menu-lateral").style.display = "none";
     }else{
+      if( screen.width < 1280 ){
+        console.log('mediana');
+        document.getElementById("menu-lateral").style.display = "block";
+      }else{
+        console.log('wrande');
+        document.getElementById("menu-lateral").style.display = "block";
+      }
 
     }
+
+
+//     if (screen.width < 1024)
+//    console.log('pequenia');
+// else
+//    if (screen.width < 1280)
+//       console.log('mediana');
+//    else
+//       console.log('wrande');
+
+
   }
 
 }

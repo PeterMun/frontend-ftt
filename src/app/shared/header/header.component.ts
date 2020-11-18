@@ -41,10 +41,27 @@ export class HeaderComponent implements OnInit {
 
   }
 
+
+  mostrarMenu(){
+    console.log("mostrar:", true)
+    this.menuMostrarOcultar.emit(true);
+  }
+
+  ocultarMenu(){
+    console.log("mostrar:", false)
+    this.menuMostrarOcultar.emit(false);
+  }
+
   w3_open() {
-    document.getElementById("mySidebar").style.display = "block";
+    document.getElementById("menu-lateral").style.display = "block";
     //document.getElementById("myOverlay").style.display = "block";
   }
+
+  w3_close() {
+    document.getElementById("mySidebar").style.display = "none";
+    //document.getElementById("myOverlay").style.display = "block";
+  }
+
 
 
 

@@ -75,13 +75,6 @@ export class MenuComponent implements OnInit {
     servicio6: any;
 
 
-
-
-
-
-
-
-
   @ViewChild('dateDirectivePicker')
   datePickerDirective: DatePickerDirective;
 
@@ -111,6 +104,7 @@ export class MenuComponent implements OnInit {
   ///
   this.getevaluacionsucursal();
   this.getserviciosmasatendidos();
+
 
 
   ///
@@ -321,7 +315,9 @@ export class MenuComponent implements OnInit {
 
 
 
+
   /////////////////////////////////////
+
 
   /////////////////PDFMAKE
 
