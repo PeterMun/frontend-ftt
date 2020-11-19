@@ -113,7 +113,7 @@ export class UsuariosComponent implements OnInit {
 
   leerturnosfecha(){
     this.serviceService.getturnosfecha().subscribe((servicio1: any) => {
-      //console.log(servicio1);
+      console.log(servicio1);
       this.servicio1 = servicio1.turnos;
 
     });
