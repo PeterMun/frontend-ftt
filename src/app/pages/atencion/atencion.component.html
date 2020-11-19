@@ -184,26 +184,28 @@
                     <br>
                     <div class="container" id="content4" #content4 #TABLE4 #table4>
                         <h1>GRAFICO</h1>
-                        <table class="table table-striped">
-                            <thead class="thead-dark">
-                                <tr>
-                                    <th scope="col" class="text-center">Servicio</th>
-                                    <th scope="col" class="text-center">Atendidos</th>
-                                    <th scope="col" class="text-center">No Atendidos</th>
-                                    <th scope="col" class="text-center">Total</th>
+                        <div class="table-responsive" id="content3" #content3 #TABLE3 #table>
+                            <table class="table table-striped">
+                                <thead class="thead-dark">
+                                    <tr>
+                                        <th scope="col" class="text-center">Servicio</th>
+                                        <th scope="col" class="text-center">Atendidos</th>
+                                        <th scope="col" class="text-center">No Atendidos</th>
+                                        <th scope="col" class="text-center">Total</th>
 
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr *ngFor="let serviciograf of serviciograf">
-                                    <td>{{serviciograf.Servicio}}</td>
-                                    <td>{{serviciograf.Atendidos}}</td>
-                                    <td>{{serviciograf.No_Atendidos}}</td>
-                                    <td>{{serviciograf.Total}}</td>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let serviciograf of serviciograf">
+                                        <td>{{serviciograf.Servicio}}</td>
+                                        <td>{{serviciograf.Atendidos}}</td>
+                                        <td>{{serviciograf.No_Atendidos}}</td>
+                                        <td>{{serviciograf.Total}}</td>
 
-                                </tr>
-                            </tbody>
-                        </table>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>
