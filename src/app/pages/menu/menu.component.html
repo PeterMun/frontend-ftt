@@ -8,7 +8,7 @@
                 <div class="d-flex">
                     <div class="m-r-20 align-self-center"><img src="../assets/images/icon/income.png" alt="Income" /></div>
                     <div class="align-self-center">
-                        <h6 class="text-muted m-t-10 m-b-0">Tickets Emitidos</h6>
+                        <h3 class="text-muted m-t-10 m-b-0">Tickets Emitidos</h3>
                         <h6 class="text-muted m-t-10 m-b-0" id="fecha1">{{date}}</h6>
                         <h2 class="m-t-0" *ngFor="let servgraf1 of servgraf1">{{ servgraf1.numeroturnos }}</h2>
                         <a routerLink="usuarios" class="card-link">Mas Info <i class="fa fa-arrow-circle-right"></i></a>
@@ -23,7 +23,7 @@
                 <div class="d-flex">
                     <div class="m-r-20 align-self-center"><img src="../assets/images/icon/expense.png" alt="Income" /></div>
                     <div class="align-self-center">
-                        <h6 class="text-muted m-t-10 m-b-0"> Tickets Atendidos </h6>
+                        <h3 class="text-muted m-t-10 m-b-0"> Tickets Atendidos </h3>
                         <h6 class="text-muted m-t-10 m-b-0" id="fecha1">{{date}}</h6>
                         <h2 class="m-t-0" *ngFor="let servgraf2 of servgraf2 "> {{ servgraf2.atendidostotales }} </h2>
                         <a routerLink="atencion" class="card-link">Mas Info <i class="fa fa-arrow-circle-right"></i></a>
@@ -38,7 +38,7 @@
                 <div class="d-flex">
                     <div class="m-r-20 align-self-center"><img src="../assets/images/icon/assets.png" alt="Income" /></div>
                     <div class="align-self-center">
-                        <h6 class="text-muted m-t-10 m-b-0"> Tickets No Atendidos</h6>
+                        <h3 class="text-muted m-t-10 m-b-0"> Tickets No Atendidos</h3>
                         <h6 class="text-muted m-t-10 m-b-0" id="fecha1">{{date}}</h6>
                         <h2 class="m-t-0" *ngFor="let servgraf3 of servgraf3"> {{ servgraf3.noatendidos }} </h2>
                         <a routerLink="distestadoturnos" class="card-link">Mas Info <i class="fa fa-arrow-circle-right"></i></a>
@@ -55,7 +55,7 @@
                 <div class="d-flex">
                     <div class="m-r-20 align-self-center"><img src="../assets/images/icon/staff.png" alt="Income" /></div>
                     <div class="align-self-center">
-                        <h6 class="text-muted m-t-10 m-b-0">Promedio Atención</h6>
+                        <h3 class="text-muted m-t-10 m-b-0">Promedio Atención</h3>
                         <h6 class="text-muted m-t-10 m-b-0" id="fecha1">{{date}}</h6>
                         <h2 class="m-t-0" *ngFor="let servgraf4 of servgraf4"> {{ servgraf4.PromedioAtencion }} </h2>
                         <a routerLink="usuarios" class="card-link">Mas Info <i class="fa fa-arrow-circle-right"></i></a>

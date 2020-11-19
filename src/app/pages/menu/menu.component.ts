@@ -163,7 +163,7 @@ export class MenuComponent implements OnInit {
     gettotaltickets(){
 
       this.serviceService.gettotaltickets(this.date).subscribe((servgraf1: any) => {
-        //console.log(servgraf1.turnos);
+        console.log(servgraf1.turnos);
         //console.log(this.date);
         this.servgraf1 = servgraf1.turnos;
 
@@ -307,7 +307,7 @@ export class MenuComponent implements OnInit {
 
   getserviciosmasatendidos(){
     this.serviceService.getserviciossolicitados().subscribe((servicio6: any) => {
-      console.log(servicio6.turnos);
+      //console.log(servicio6.turnos);
       this.servicio6 = servicio6.turnos;
 
     });
